@@ -8,6 +8,10 @@
 <script>
 import FooterGuide from "./components/FooterGuide/FooterGuide.vue";
 import { mapState, mapActions } from "vuex";
+import Swiper from "swiper"
+import 'swiper/css/swiper.min.css'
+// import 'swiper/js/'
+
 export default {
   components: {
     FooterGuide
@@ -16,15 +20,10 @@ export default {
     ...mapState(["footer_on"])
   },
   created: function() {
-    if (
-      this.$route.path == "/msite" ||
-      this.$route.path == "/Profile" ||
-      this.$route.path == "/order"
-    ) {
+   
       this.$store.state.footer_on = true;
-    } else {
-      this.$store.state.footer_on = false;
-    }
+   
+    
   },
   methods: {},
   mounted() {
@@ -38,7 +37,7 @@ export default {
       this.$store.state.login = false;
 
       let sef = this;
-   console.log(userEntity.num.slice(0,2))
+
       if (userEntity.num.slice(0,2) == "学号") {
         $.ajax({
           url: "http://111.229.53.240:8080/qiluweb/class/findclass",
@@ -51,6 +50,33 @@ export default {
          
               sef.$store.state.lass_num =
                 result.class_list[0].personnel_list[0].invite_num;
+            }
+          },
+          error: function(err) {
+            setTimeout(() => {
+              console.log(err);
+              alert("提交失败！");
+            }, 500);
+          }
+        });
+      }else if(userEntity.num.slice(0,2) == "工号"){
+          $.ajax({
+          url: "http://111.229.53.240:8080/qiluweb/class/findclass",
+          type: "POST",
+          data: {
+            teacher_num: nu
+          },
+          success: function(result) {
+          
+            if (result) {
+      sef.$store.state.class_list = [];
+      sef.$store.state.class_na = [];
+              result.class_list.forEach(function(item){
+                sef.$store.state.class_list.push(item.personnel_list[0].invite_num)
+                sef.$store.state.class_na.push(item.class_name)
+              })
+         
+              console.log(sef.$store.state.class_na);
             }
           },
           error: function(err) {

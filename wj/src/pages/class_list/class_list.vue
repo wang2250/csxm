@@ -6,7 +6,7 @@
       <span>我的班级</span>
     </div>
       <ul>
-          <li v-for="(item,i) in list" v-bind:key="i">
+          <li v-for="(item,i) in list" v-bind:key="i" @click="go_rea(item)">
             <span class="img"></span>
             <span class="name">  {{item.class_name}}</span>
             <i class="see">邀请码：<i style="color:#02a774">{{item.personnel_list[0].invite_num}}</i></i>
@@ -72,7 +72,13 @@ if(this.$store.state.num.slice(0,2) == '学号'){
   go_back(){
        this.$router.replace("./Profile");
       this.footer_on(true);
+  },
+  go_rea(list_rea){
+     this.$store.state.cla_reason = list_rea;
+     this.$router.replace("./class_rea");
+     
   }
+
 
   },
   mounted() {

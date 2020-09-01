@@ -3,7 +3,15 @@
        
        <div class="warpper" >
  <ul>
-          <li v-for="(item,i) in list" v-bind:key="i" @click="msg_go(item.personnel_list[0].invite_num,item.personnel_list,item.class_name)">
+   <li>
+            <span class="img"></span>
+            <span class="name" style="font-size:15px;">通知助手</span>
+            <span class="time">时间</span>
+            <span class="msg_num">1</span>
+            <span class="msg_content">消息内容</span>
+            
+          </li>
+          <li v-for="(item,i) in cl_list" v-bind:key="i" @click="msg_go(item.personnel_list[0].invite_num,item.personnel_list,item.class_name)">
             <span class="img"></span>
             <span class="name" style="font-size:15px;">  {{item.class_name}}</span>
             <span class="time">时间</span>
@@ -13,6 +21,7 @@
           
 
           </li>
+          
       </ul>
        </div>
     </div>
@@ -38,6 +47,9 @@ export default {
         this.footer_on(false);
    }
    },
+    computed: {
+    ...mapState(["cl_list"])
+  },
    created:function(){
       let sef = this;
   let data = null;
@@ -61,7 +73,12 @@ export default {
         success: function(result) {
           if (result) {
             
-            sef.list = result.class_list;
+            
+            if(sef.$store.state.cla_number != result.class_list.length){
+                  sef.$store.state.cl_list = result.class_list;
+            }
+            sef.$store.state.cla_number = result.class_list.length;
+            
             if(result.class_list.length != 0){
               sef.key = false;
             }

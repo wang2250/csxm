@@ -17,7 +17,17 @@ Vue.use(Vuex);
       login_key:true,
       msg_nums:"",
       per_list:[],
-      cla_name:""
+      cla_name:"",
+      key_msg_web:true,
+      msg_list:[],
+      class_list:[],
+      last_num:[],
+      cla_number:"",
+      cl_list:[],
+      class_na:[],
+      cla_reason:"",
+      msg_list_arr:[]
+      
    
     },
     mutations:{

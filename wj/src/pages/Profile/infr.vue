@@ -8,8 +8,32 @@
      <div class="warpper">
 
     <h2>个人信息</h2>
-     </div>
 
+     <ul v-if="login" >
+      
+       <h3>您还未登录</h3>
+     </ul>
+     <ul v-else>
+        <li style="padding:0">
+          <img :src="img" alt="" style="width:60px;height:60px;  border-radius: 50%; border:1px solid green;" >
+       </li>
+ <li>
+      <h3>姓名：{{name}}</h3>
+    </li>
+    <li>
+      <h3>{{num}}</h3>
+    </li>
+    <li>
+      <h3>姓名：{{name}}</h3>
+    </li>
+     </ul>
+   
+
+   
+
+
+     </div>
+             
         
     
       
@@ -43,8 +67,8 @@ export default {
     }
         
     },
-    computed: {
-    
+     computed: {
+    ...mapState(["login", "name", "num","img"])
   },
 }
 </script>
@@ -53,10 +77,18 @@ export default {
     width: 80%;
    height: 500px;
   margin: 0 auto;
- 
+
   position: relative;
 }
+ul{
+  width: 90%;
+  height: 400px;
 
+
+}
+ul li {
+ padding-left: 60px;
+}
 
 
 

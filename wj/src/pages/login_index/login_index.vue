@@ -14,8 +14,7 @@
           <input type="text" placeholder="请输入工号" name="teacher_num" class="num" />
 
           <input type="password" placeholder="请输入登录密码" name="password" />
-
-          <input type="button" class="sub" value="登录" @click="log_in()" />
+        <span class="sub" @click="log_in()" >登录</span>
         </div>
 
         <!---->
@@ -26,7 +25,7 @@
 
           <input type="password" placeholder="请输入登录密码" name="password" />
 
-          <input type="button" class="sub" value="登录" @click="log_in()" />
+          <span class="sub" @click="log_in()" >登录</span>
         </div>
       </form>
     </div>
@@ -88,6 +87,7 @@ export default {
         //       login_on(false);
         //       sef.name = result.name;
       }
+      
       $.ajax({
         url: "http://huangfufu.top:8080/qiluweb/number/login",
         type: "post",
@@ -212,11 +212,15 @@ span {
 }
 
 .sub {
-
-  border-radius: 20px;
-  background: #e4e0e0;
+  display: inline-block;
+   width: 100%;
+   height: 35px;
+   border-radius: 20px;
+  background: #02a774;
   color: white;
   font-size: 15px;
+  line-height: 35px;
+  text-align: center;
 }
 .login_top {
   margin: 5px 0 0 5px;

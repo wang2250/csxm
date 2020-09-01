@@ -3,212 +3,96 @@
     <div class="top">
       <div class="ttop">
         <span>
-          <i class="iconfont icon-laoshi" style="color:red"></i>
+          <i class="iconfont icon-xiugaitouxiang" style="color:greenyellow"></i>
         </span>
         <span v-if="!login">{{name}}</span>
         <span class="time"></span>
+        <span>：)</span>
       </div>
-      <i class="iconfont icon-jia join" @click="join()"></i>
-      <span class="join_to" :id="join_to" @click="join_go()">{{join_to}}</span>
+      <i class="iconfont icon-jia join" @click="join_go()"></i>
+      <!-- <span class="join_to" :id="join_to" @click="join_go()">{{join_to}}</span> -->
     </div>
-    <div class="nav">
-      <ul>
-        <li>
-          <i class="iconfont icon-kaoqin" @click="go_punch_in()"></i>
-          <span>考勤</span>
-        </li>
-        <li>
-          <i class="iconfont icon-wj-rz" @click="go_day_jou()"></i>
-          <span>日志</span>
-        </li>
-        <li>
-          <i class="iconfont icon-gongneng" @click="go_nav()"></i>
-          <span>常用功能</span>
-        </li>
-      </ul>
-    </div>
-    <div class="class_list">
-      <h2>课程表</h2>
-      <ul class="list">
-        <li>
-          <input type="text" />
-        </li>
-        <li>
-          <input type="text" value="星期一" />
-        </li>
-        <li>
-          <input type="text" value="星期二" />
-        </li>
-        <li>
-          <input type="text" value="星期三" />
-        </li>
-        <li>
-          <input type="text" value="星期四" />
-        </li>
-        <li>
-          <input type="text" value="星期五" />
-        </li>
-        <li>
-          <input type="text" value="第一节" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="第二节" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="ddd3" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="dddd" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="第三节" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="第四节" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="第五节" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value="第六节" />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-        <li>
-          <input type="text" value />
-        </li>
-      </ul>
-      <div class="set">
-        <i class="iconfont icon-jiantou-shangxia posi"></i>
+    <div class="nav swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <ul>
+            <li>
+              <svg class="icon" aria-hidden="true" @click="go_punch_in()">
+                <use xlink:href="#icon-qiandao" />
+              </svg>
+              <!-- <i class="iconfont icon-kaoqin" @click="go_punch_in()"></i> -->
+              <span>考勤</span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-weekly" />
+              </svg>
+              <!-- <i class="iconfont icon-wj-rz" @click="go_zb()"></i> -->
+              <span>周报</span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true" @click="go_class_r()">
+                <use xlink:href="#icon-kechengbiaoselected" />
+              </svg>
+              <!-- <i class="iconfont icon-gongneng" @click="go_nav()"></i> -->
+              <span>课程表</span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true" @click="go_leave()">
+                <use xlink:href="#icon-qingjia" />
+              </svg>
+              <span>请假</span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-ziyuan" />
+              </svg>
+              <span>推送</span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-chengjishouji" />
+              </svg>
+              <span>数据收集</span>
+            </li>
+          </ul>
+        </div>
+        <div class="swiper-slide">
+          <ul>
+            <li>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-xingtuxuetang-toupiao-" />
+              </svg>
+              <!-- <i class="iconfont icon-kaoqin" @click="go_punch_in()"></i> -->
+              <span>投票</span>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="warpper"></div>
-      <div class="set_class_list" v-if="on_teacher">
-        <i class="iconfont icon-youkuozhan" style="font-size:23px;" @click="but_on()"></i>
-        <span class="edit" @click="edit()">编辑课程表</span>
-        <span class="reset" @click="reset()">重置课表</span>
-        <i class="iconfont icon-kujialeqiyezhan_mohutuozhuaichicun"></i>
+      <!-- <div class="swiper-pagination"></div> -->
+    </div>
+    <div class="course">
+      <h2>当前课程</h2>
+      <div class="swiper-container">
+        <div class="course_cont swiper-wrapper">
+          <div class="swiper-slide">
+
+           
+               <div>10:20~11:20</div>
+            <div>张三 | 主楼1-02</div>
+       
+           
+               <div>3，4</div>
+                 <div>高等数学</div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Swiper from "swiper";
 import { mapState, mapActions } from "vuex";
 export default {
   data() {
@@ -220,8 +104,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["login", "name", "num"]),
-    join_to() {
+    ...mapState(["login", "name", "num", "class_na"]),
+    join_to_do() {
       let nu = this.num.slice(0, 2);
       if (nu == "学号") {
         return "加入班级";
@@ -240,18 +124,9 @@ export default {
   },
   methods: {
     ...mapActions(["footer_on"]),
-    join() {
-      let join_to = document.querySelector(".join_to");
-      if (join_to.style.display == "inline-block") {
-        join_to.style.display = "none";
-      } else {
-        join_to.style.display = "inline-block";
-      }
-    },
-    join_go() {
-      let join_to = document.querySelector(".join_to");
 
-      if (join_to.id == "加入班级") {
+    join_go() {
+      if (this.join_to_do == "加入班级") {
         this.$router.replace("./join_class");
         this.footer_on();
       } else {
@@ -269,196 +144,34 @@ export default {
 
       this.footer_on(false);
     },
-    go_nav() {
-      this.$router.replace("./nav");
+    go_zb() {},
+    go_class_r() {
+      this.$router.replace("./class_r");
       this.footer_on(false);
     },
-    edit() {
-      let oUl = document.querySelector(".list");
-      let oLi = oUl.querySelectorAll("li");
-      let domm = null;
-      let edit = document.querySelector(".edit");
-      let reset = document.querySelector(".reset");
 
-      let war = document.querySelector(".warpper");
-      let sef = this;
-      let posi = document.querySelector(".posi");
-      war.style.display = "none";
-
-      if (sef.key == true) {
-        oUl.style.border = "none";
-        posi.style.display = "block";
-        oLi.forEach(function(item) {
-          item.style.border = "1px dashed black";
-        });
-
-        oUl.addEventListener("click", function(dom) {
-          if (domm != null) {
-            domm.style.border = "";
-          }
-          sef.arr.push({ dom: dom.target, value: dom.target.value });
-
-          dom.target.style.border = "1px solid #02a774";
-
-          domm = dom.target;
-        });
-        edit.innerHTML = "确认编辑";
-        reset.innerHTML = "取消编辑";
-        sef.key = false;
-
-        function moveBlack(elem) {
-          elem.onmousedown = function(e) {
-            e = e || window.event;
-
-            var cha_x = e.pageX - elem.offsetLeft; //鼠标点击的地方与方块left之间的差值
-            var cha_y = e.pageY - elem.offsetTop;
-
-            document.onmousemove = function(e) {
-              e = e || window.event;
-
-              var on_x = e.pageX - cha_x;
-              var on_y = e.pageY - cha_y;
-
-              //  elem.style.left = on_x + "px";
-              elem.style.top = on_y + "px";
-            };
-
-            elem.onmouseup = function() {
-              document.onmousemove = null;
-              let num = -12 - elem.offsetTop;
-
-              oUl.style.height = oUl.offsetHeight - num + "px";
-              elem.style.top = elem.offsetTop + num + "px";
-            };
-          };
-        }
-        function moveBlack_phone(elem) {
-          elem.ontouchstart = function(e) {
-            e = e || window.event;
-
-            var cha_x = e.pageX - elem.offsetLeft; //鼠标点击的地方与方块left之间的差值
-            var cha_y = e.pageY - elem.offsetTop;
-
-            document.ontouchmove = function(e) {
-              e = e || window.event;
-
-              var on_x = e.pageX - cha_x;
-              var on_y = e.pageY - cha_y;
-
-              //  elem.style.left = on_x + "px";
-              elem.style.top = on_y + "px";
-            };
-
-            elem.ontouchend = function() {
-              document.onmousemove = null;
-              let num = -12 - elem.offsetTop;
-
-              oUl.style.height = oUl.offsetHeight - num + "px";
-              elem.style.top = elem.offsetTop + num + "px";
-            };
-          };
-        }
-        let os = (function() {
-          let ua = navigator.userAgent,
-            isWindowsPhone = /(?:Windows Phone)/.test(ua),
-            isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
-            isAndroid = /(?:Android)/.test(ua),
-            isFireFox = /(?:Firefox)/.test(ua),
-            isChrome = /(?:Chrome|CriOS)/.test(ua),
-            isTablet =
-              /(?:iPad|PlayBook)/.test(ua) ||
-              (isAndroid && !/(?:Mobile)/.test(ua)) ||
-              (isFireFox && /(?:Tablet)/.test(ua)),
-            isPhone = /(?:iPhone)/.test(ua) && !isTablet,
-            isPc = !isPhone && !isAndroid && !isSymbian;
-          return {
-            isTablet: isTablet,
-            isPhone: isPhone,
-            isAndroid: isAndroid,
-            isPc: isPc
-          };
-        })();
-        if (os.isAndroid || os.isPhone) {
-    moveBlack_phone(posi)
-        } else if (os.isTablet) {
-            moveBlack_phone(posi)
-        } else if (os.isPc) {
-         moveBlack(posi)
-        }
-      } else {
-        let reset = document.querySelector(".reset");
-        let oLi = oUl.querySelectorAll("li");
-        oLi.forEach(function(item) {
-          item.querySelector("input").style.border = "none";
-          item.style.border = "none";
-        });
-        posi.style.display = "none";
-        oUl.style.border = "1px solid #e4e0e0";
-
-        let edit = document.querySelector(".edit");
-        edit.innerHTML = "编辑课程表";
-        sef.key = true;
-
-        let war = document.querySelector(".warpper");
-        war.style.display = "block";
-        reset.innerHTML = "重置课表";
-        //发送请求
-      }
-    },
-    reset() {
-      let oUl = document.querySelector(".list");
-      let oLi = oUl.querySelectorAll("li");
-      let posi = document.querySelector(".posi");
-      let edit = document.querySelector(".edit");
-      posi.style.display = "none";
-      oUl.style.border = "1px solid #e4e0e0";
-      oLi.forEach(function(item) {
-        item.querySelector("input").style.border = "none";
-        item.style.border = "none";
-      });
-      this.arr.forEach(function(item) {
-        item.dom.value = item.value;
-      });
-      let war = document.querySelector(".warpper");
-      war.style.display = "block";
-      oUl.style.height = "250px";
-      edit.innerHTML = "编辑课程表";
-    },
     change() {},
-    go_day_jou() {
-      let name = this.$store.state.num.slice(0, 2);
 
-      if (name == "工号") {
-        this.$router.replace("./day_jou_teacher");
+    go_leave() {
+      if (this.$store.state.num.slice(0, 2) == "学号") {
+        this.$router.replace("./leave");
         this.footer_on(false);
-      } else {
-        this.$router.replace("./day_jou_student");
+      } else if (this.$store.state.num.slice(0, 2) == "工号") {
+        this.$router.replace("./leave_to");
         this.footer_on(false);
-      }
-    },
-    but_on() {
-      let obut = document.querySelector(
-        ".icon-kujialeqiyezhan_mohutuozhuaichicun"
-      );
-      let oOne = document.querySelector(".edit");
-      let oTwo = document.querySelector(".reset");
-      let oI = document.querySelector(".set_class_list").querySelector("i");
-      if (this.key_but) {
-        oI.className = "iconfont icon-zuokuozhan";
-        oOne.style.display = "inline-block";
-        oTwo.style.display = "inline-block";
-        obut.style.display = "inline-block";
-        this.key_but = false;
-      } else {
-        oI.className = "iconfont icon-youkuozhan";
-        oOne.style.display = "none";
-        oTwo.style.display = "none";
-        obut.style.display = "none";
-        this.key_but = true;
       }
     }
   },
   mounted() {
+    let mySwiper = new Swiper(".swiper-container", {
+      //   direction: "vertical", // 垂直切换选项
+      loop: true, // 循环模式选项
+
+      // 如果需要分页器
+      pagination: {
+        el: ".swiper-pagination"
+      }
+    });
     let get_time = function() {
       let time = document.querySelector(".time");
       let hour = new Date().getHours();
@@ -493,26 +206,26 @@ export default {
   position: relative;
 }
 .top .ttop span {
-  position: absolute;
+  display: inline-block;
 }
 .top .ttop span:nth-of-type(1) {
+  position: absolute;
   top: 0px;
   left: 25px;
 }
 .top .ttop span:nth-of-type(2) {
-  top: 7px;
-  left: 22px;
+  margin-left: 30px;
 }
 .top .ttop span:nth-of-type(3) {
-  top: 7px;
-  left: 80px;
+  font-size: 15px;
 }
+
 .nav {
   width: 95%;
-  height: 60px;
+  height: 155px;
   border: 1px solid #e4e0e0;
   margin-top: 10px;
-  border-radius: 30px;
+  padding-top: 10px;
   margin: 0 auto;
   color: black;
   margin-bottom: 20px;
@@ -525,28 +238,35 @@ export default {
 
   margin: 0 auto;
   position: relative;
+  margin-bottom: 13px;
 }
-.nav li .iconfont {
+/* .nav li .iconfont {
   position: absolute;
   left: 50%;
   top: -4px;
   font-size: 40px;
   transform: translateX(-50%);
+} */
+.nav li svg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.nav li:nth-of-type(2) .iconfont {
+/* .nav li:nth-of-type(2) .iconfont {
   font-size: 35px;
   top: -1px;
 }
 .nav li:nth-of-type(3) .iconfont {
   font-size: 36px;
   top: -2px;
-}
+} */
 .nav li span {
   position: absolute;
   left: 50%;
-  top: 38px;
+  top: 42px;
   font-size: 14px;
   transform: translateX(-50%);
+  color: grey;
 }
 .top i {
   position: absolute;
@@ -578,30 +298,36 @@ export default {
   overflow: hidden;
 }
 .class_list ul {
-  width: 100%;
+  width: 96%;
   /* height: 300px;
   position: absolute;
   top:50px;
   left:20px; */
+  margin: 0 auto;
   height: 250px;
   border: 1px solid #e4e0e0;
   overflow: hidden;
 }
 .class_list ul li {
   width: 16.6%;
-  height: 35px;
-
+  height: 40px;
+  position: relative;
   float: left;
   text-align: center;
   line-height: 25px;
 }
-.class_list ul li input {
-  width: 90%;
-  height: 88%;
+.class_list ul li textarea {
+  height: 50px;
+  width: 40px;
+  position: absolute;
+  left: 0;
+  right: 0;
+
   border: none;
   outline: none;
   font-size: 13px;
 }
+
 .set_class_list {
   width: 100%;
   height: 40px;
@@ -646,6 +372,68 @@ export default {
   top: -15px;
   right: -7px;
   display: none;
+}
+.course {
+  width: 90%;
+
+  margin: 0 auto;
+}
+.course h2 {
+  padding-left: 8px;
+  color: sandybrown;
+}
+
+.course swiper-wrapper {
+  width: 100%;
+  height: 70px;
+  border: 1px solid sandybrown;
+
+  border-radius: 20px;
+}
+.course .swiper-slide {
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(left, #d9f7f3, #d0f7f7);
+  border-radius: 20px;
+  padding: 5px 5px 15px 15px;
+  color: grey;
+  position: relative;
+}
+.course .swiper-slide div{
+position: absolute;
+background: transparent;
+}
+.course .swiper-slide div:nth-last-of-type(1){
+  
+  left: 13px;
+  top:10px;
+  width: 100px;
+  height: 25px;
+  
+}
+.course .swiper-slide div:nth-last-of-type(2){
+  
+  right: 10px;
+  top:10px;
+  width: 100px;
+  height: 25px;
+  
+}
+.course .swiper-slide div:nth-last-of-type(3){
+  
+  left: 13px;
+  bottom:3px;
+  width: 100px;
+  height: 25px;
+  
+}
+.course .swiper-slide div:nth-last-of-type(4){
+  
+  right: 10px;
+  bottom:3px;
+  width: 100px;
+  height: 25px;
+  
 }
 </style>
  

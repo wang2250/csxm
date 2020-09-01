@@ -65,6 +65,7 @@ export default {
     ...mapActions(["login_on", "footer_on"]),
     go_back() {
       this.$router.replace("./punch_in_teacher");
+       this.footer_on(false);
     },
     ever() {
       let dom = document.querySelectorAll(".kuang");

@@ -11,7 +11,7 @@ import creat_class from '../components/creat_class/creat_class.vue'
 import class_list from '../pages/class_list/class_list.vue'
 import punch_in_teacher from "../pages/punch_in/punch_in_teacher.vue"
 import punch_in_student from "../pages/punch_in/punch_in_student.vue"
-import nav from "../pages/nav/nav.vue"
+
 import punch_in from "../pages/punch_in/punch_in.vue"
 import order from "../pages/order/order.vue"
 import go_click from "../pages/go_click/go_click.vue"
@@ -25,6 +25,9 @@ import infr from "../pages/Profile/infr.vue";
 import punch_xq from "../pages/punch_in/punch_xq.vue"
 import shezhi from "../pages/Profile/shezhi.vue";
 import msg from "../pages/order/msg.vue"
+import leave_reason from "../pages/nav/leave_reason.vue";
+import  classR from "../pages/nav/class_r.vue";
+import class_rea from '../pages/class_list/cla_rea.vue'
 Vue.use(Router);
 
 export default new Router({
@@ -69,10 +72,6 @@ export default new Router({
         {
             path:'/punch_in_student',
             component:punch_in_student
-        },
-        {
-            path:'/nav',
-            component:nav
         },
         {
             path:'/punch_in',
@@ -129,6 +128,19 @@ export default new Router({
         {
             path:'/msg',
             component:msg
+        }
+        ,
+        {
+            path:'/leave_reason',
+            component:leave_reason
+        } ,
+        {
+            path:'/class_r',
+            component:classR
+        } ,
+        {
+            path:'/class_rea',
+            component:class_rea
         }
 
 

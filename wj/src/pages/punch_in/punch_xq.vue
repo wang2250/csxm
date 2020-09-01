@@ -6,7 +6,7 @@
     <div class="list">
       <h2>已签到</h2>
        <ul class="punch">
-         <li  v-for="(item,i) in punch" v-bind:key="i">
+         <li  v-for="(item,i) in punch" v-bind:key="i" >
           <img :src="item.img" alt="">
           {{item.student_name}}
          </li>
@@ -18,7 +18,8 @@
        <h2>未签到</h2>
        <ul class="un_punch">
          <li  v-for="(item,i) in unpunch" v-bind:key="i">
-          {{item.personnel_name}}
+           <img :src="item.img" alt="" >
+          <span>  {{item.personnel_name}}</span>
          </li>
        </ul>
     </div>
@@ -75,7 +76,7 @@ export default {
     },
     creat(){
 let sef = this;
-console.log(sef.num)
+
         $.ajax({
       url: "http://huangfufu.top:8080/qiluweb/attendance/studentssigninforclass",
       type: "post",
@@ -84,7 +85,7 @@ console.log(sef.num)
       },
 
       success: function(result) {
-        console.log(result)
+        
         if (result) {
          
           let dom = document.querySelector(".two");
@@ -115,10 +116,11 @@ dom.style.display = "none";
    if(key){
      sef.unpunch.push(seff);
    }
+   
 
  })
 
- console.log(sef.unpunch)
+ 
 
 
 
@@ -184,6 +186,7 @@ dom.style.display = "none";
   margin-top: 10px;
 }
 .two ul li {
+ 
   position: relative;
  height: 55px;
 }
@@ -228,23 +231,46 @@ display: inline-block;
   overflow: hidden;
 }
 .list  li {
-   width: 25%;
+   width: 20%;
    height: 70px;
     border:1px solid black;
     float: left;
-    margin-right: 10px;
+    margin: 0  10px 10px 0;
 }
+.list li img{
+  display: inline-block;
+  width: 70%;
+  height: 40px;
+  border:1px solid greenyellow;
+}
+.list li li span{
+  display: inline-block;
+  width: 70%;
+   text-align: center;
+}
+
 .unpunch{
   width: 80%;
   margin: 0 auto;
   overflow: hidden;
 }
 .unpunch li {
-   width: 25%;
+   width: 20%;
    height: 70px;
-    border:1px solid black;
+  
     float: left;
-    margin-right: 10px;
+    margin: 0  10px 10px 0;
+    
 }
-
+.unpunch li img{
+  display: inline-block;
+  width: 70%;
+  height: 40px;
+  border:1px solid grey;
+}
+.unpunch li span{
+  display: inline-block;
+  width: 70%;
+   text-align: center;
+}
 </style>

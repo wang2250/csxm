@@ -71,16 +71,16 @@ export default {
           location_lat: ""
         }
       };
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          data.position.location_lon = position.coords.longitude;
-          data.position.location_lat = position.coords.latitude;
-        });
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.getCurrentPosition(function(position) {
+      //     data.position.location_lon = position.coords.longitude;
+      //     data.position.location_lat = position.coords.latitude;
+      //   });
 
       
-      } else {
-        alert("您的设备不支持定位功能");
-      }
+      // } else {
+      //   alert("您的设备不支持定位功能");
+      // }
   //请求
 
 data.health = JSON.stringify(data.health);
@@ -115,7 +115,15 @@ $.ajax({
     let num = this.$store.state.num.slice(3);
     let sef = this;
 
-    console.log(sef.$store.state.lass_num);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log(position)
+        });
+    console.log("sss")
+      
+      } else {
+        alert("您的设备不支持定位功能");
+      }
     let data = {
       lass_num: sef.$store.state.lass_num,
       student_num: num

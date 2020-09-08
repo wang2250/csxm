@@ -16,7 +16,7 @@
      </a>
       <a href="javascript:;" class="guide_item" :class="{on:'/Profile'=== $route.path}" @click="goTo('/Profile')">
           <span class="item_icon">
-         <i class="iconfont icon-personal"></i>
+         <i class="iconfont icon-xiugaitouxiang"></i>
        </span>
        <span>我的</span>
      </a>
@@ -59,7 +59,7 @@ export default {
       color: #999999;
   }
    .footer_guide .on{
-      color: #02a774;
+      color: #f6de3e;
    }
    .guide_item span{
        font-size: 12px;

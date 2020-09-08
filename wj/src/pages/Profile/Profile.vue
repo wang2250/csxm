@@ -1,8 +1,6 @@
 <template>
   <div class="profile">
-    <div class="set_up">
-      <i class="iconfont icon-shezhi" @click="sezhi()"></i>
-    </div>
+   
     <div class="top">
       <div class="headerimg">
         <img :src="img" alt />
@@ -25,7 +23,11 @@
       </div>
       <div class="right">
         <div>
-          <i class="iconfont icon-banjiguanli" @click="go_class_list()"></i>
+          
+          <svg class="icon" aria-hidden="true" @click="go_class_list()">
+                <use xlink:href="#icon-gerenxinxiyesuozaibanji" />
+              </svg>
+          <!-- <i class="iconfont icon-banjiguanli" ></i> -->
           <span>班级</span>
         </div>
       </div>
@@ -107,7 +109,7 @@ export default {
 .top {
   width: 100%;
   height: 60px;
-  margin: 40px 0 5px 0;
+  margin: 20px 0 5px 0;
   position: relative;
 }
 .top .headerimg {
@@ -118,7 +120,7 @@ export default {
   display: inline-block;
   overflow: hidden;
   margin-left: 4px;
-  border: 1px solid #02a774;
+  border: 1px solid #f6de3e;
 }
 .top .nologin {
   width: 200px;
@@ -180,9 +182,9 @@ img {
   border: 1px solid #e4e0e0;
   border-radius: 10px;
 }
-.nav .right .iconfont {
+.nav .right svg {
   font-size: 33px;
-  color: #02a774;
+  color: #f6de3e;
   position: absolute;
   left: 50%;
   top: 5px;
@@ -191,7 +193,7 @@ img {
 .nav .right span {
   position: absolute;
   left: 50%;
-  top: 38px;
+  top: 40px;
   transform: translateX(-50%);
 }
 .list {
@@ -210,7 +212,7 @@ img {
   position: relative;
 }
 .list li i:nth-of-type(1) {
-  color: #02a774;
+  color: #f6de3e;
   position: absolute;
   left: 5px;
   top: 0;

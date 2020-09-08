@@ -1,6 +1,6 @@
 <template>
   <div class="join_class">
-    <i class="iconfont icon-jiantou2" @click="go_back()"></i>
+    <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()"></i>
     <div class="warpper">
  
         <input type="text" placeholder="请输入班级邀请码"  class="class_num"/>

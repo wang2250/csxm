@@ -2,7 +2,7 @@
  
   <div >
     <div class="top">
-      <i class="iconfont icon-jiantou2" @click = "go_back()"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click = "go_back()"></i>
       <span>班级详情</span>
     </div>
     <div class="warpper">
@@ -108,7 +108,7 @@ export default {
  .warpper .out_log{
      width: 90%;
      height: 30px;
-     margin-top: 10px;
+     margin-top: 25px;
    
  }
  .warpper .out_log span{

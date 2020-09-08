@@ -1,7 +1,7 @@
 <template>
   <div class="login_ind">
     <div class="login_top">
-      <i class="iconfont icon-jiantou2" @click="go_back()"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()"></i>
     </div>
     <div class="login_body">
       <form action="#" method="POST" id="formData">
@@ -84,12 +84,11 @@ export default {
         this.$store.state.num = `工号：${inp.value}`;
         this.$store.state.name = name.value;
 
-        //       login_on(false);
-        //       sef.name = result.name;
+        
       }
       
       $.ajax({
-        url: "http://huangfufu.top:8080/qiluweb/number/login",
+        url: "https://huangfufu.top:8080/qiluweb/number/login",
         type: "post",
         data: form,
         cache: false,

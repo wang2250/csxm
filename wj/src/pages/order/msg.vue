@@ -1,14 +1,14 @@
 <template>
   <div class="msg">
     <p style="padding:10px 0 0 10px; position:relative; ">
-      <i class="iconfont icon-jiantou2" @click="go_back()" style="font-size:28px;"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()" style="font-size:28px;"></i>
       <span class="cla_name">{{cla_name}}</span>
     </p>
     <div class="warpper_content">
       <ul id="list_cot">
         <li v-for="(item,i) in msg_list_arr" :key="i" >
           <span :class="item.cla_img" >
-            <img :src="item.img" alt="" >
+            <img :src="item.per_img" alt="" >
               
           </span>
           <span :class="item.cla_cot" :id="item.cla_cot">{{item.msg_content}}</span>
@@ -37,7 +37,9 @@ export default {
       key: true,
     
       msg_list:[],
-      msg_key:true
+      msg_key:true,
+      key_cla:true,
+      key_first:true
       
     };
   },
@@ -61,7 +63,7 @@ export default {
       };
 
       $.ajax({
-        url: "http://huangfufu.top:8080/qiluweb/chat/send",
+        url: "https://huangfufu.top:8080/qiluweb/chat/send",
         type: "POST",
         data: data,
 
@@ -82,10 +84,33 @@ export default {
    created:function(){
      let ws = null;
    let sef  = this;
+   
+   let on_teastu = sef.$store.state.num.slice(0,2);
   let num = sef.$store.state.msg_nums;
   let per_num  = sef.$store.state.num.slice(3);
   let str = num + '_' + per_num;
   
+   //
+   if(on_teastu == "工号"){
+       sef.$store.state.msg_teacher_arr.forEach(function(item,i){
+     if(item.ite == num){
+      
+      
+       sef.$store.state.msg_list_arr = item.data;
+       sef.key_first = false;
+     }
+    
+    
+  })
+  if(sef.key_first){
+    sef.$store.state.msg_list_arr = [];
+  }
+   }
+
+  
+
+
+
   console.log(sef.$store.state.last_num.indexOf(num) == -1)
    if(sef.$store.state.last_num.indexOf(num) == -1){
      
@@ -93,11 +118,12 @@ export default {
       sef.$store.state.last_num.push(num);
      // sef.$store.state.last_num = sef.$store.state.msg_nums
      console.log(num,1111)
-   ws =  new WebSocket(`ws://huangfufu.top:8080/qiluweb/websocket/${str}`);
+   ws =  new WebSocket(`wss://huangfufu.top:8080/qiluweb/websocket/${str}`);
     ws.onopen = function () {
 		console.log("建立连接")
-    ws.send(sef.$store.state.lass_num);
-    //sef.$store.state.key_msg_web = false;
+   
+  
+    
 	}
 
 	ws.onclose = function () {
@@ -126,50 +152,45 @@ let dom_war= document.querySelector(".warpper_content");
 console.log(dom_ul.offsetHeight,dom_war.offsetHeight)
 if(dom_ul.offsetHeight >dom_war.offsetHeight){
   
-  dom_ul.style.top =dom_ul.offsetTop -65 +'px';
+  dom_ul.style.top =dom_ul.offsetTop -60+'px';
 }
 
-//判断消息列表所属班级 
-//let list_msg = sef.$store.state.msg_list_arr
-// if(!list_msg.length){
-  
-//  list_msg.push({});
-//  list_msg[0].name = num;
-//  list_msg[0].list = [];
-//  list_msg[0].list.push(data);
 
-// }else{
-//  list_msg.forEach(function(item,i){
-//      if(item.name == num){
-//        item.list.push(data);
-//      }else{
-      
-//      }
-//   })
-// }
-//  list_msg.forEach(function(item,i){
-//      if(item.name == num){
-//        item.list.push(data);
-//        sef.msg_key = false;
-//      }
-//   })
-
-//   if(sef.msg_key){
-//     list_msg.push({data:num,list:[data]})
-//   }
-//  list_msg.forEach(function(item,i){
-//      if(item.name == num){
-      
-//        sef.msg_list = item.list;
-//        console.log(sef.msg_list)
-//      }
-//   })
-
-
-
+if(on_teastu == "学号"){
 sef.$store.state.msg_list_arr.push(data);
+}else{
+ 
 
-//console.log(sef.msg_list)
+
+//主体循环
+  sef.$store.state.msg_teacher_arr.forEach(function(item,i){
+     if(item.ite == num){
+       item.data.push(data);
+       console.log(item.data,22222,sef.msg_list)
+       sef.$store.state.msg_list_arr = item.data;
+       sef.key_cla = false;
+     }
+    
+    
+  })
+
+  //没找到
+   if(sef.key_cla){
+    
+   sef.$store.state.msg_teacher_arr.push({ite:num,data:[]})
+   let nuu = sef.$store.state.msg_teacher_arr.length-1
+   sef.$store.state.msg_teacher_arr[nuu].data.push(data);
+   sef.$store.state.msg_list_arr = sef.$store.state.msg_teacher_arr[nuu].data;
+   
+   console.log(sef.$store.state.msg_teacher_arr[nuu],11111,sef.msg_list)
+   }
+   
+    
+
+}
+
+
+
    }
 
 
@@ -227,6 +248,7 @@ sef.$store.state.msg_list_arr.push(data);
 .warpper_content ul li img{
   width: 100%;
   height: 100%;
+ 
 
 }
 .msg_img{
@@ -235,7 +257,7 @@ sef.$store.state.msg_list_arr.push(data);
     left:0 ;
     top:0;
     position: absolute;
-    border:1px solid salmon;
+ 
 }
 .msg_cot{
 left:60px ;
@@ -291,7 +313,7 @@ left:60px ;
  right:0 ;
     top:0;
     position: absolute;
-    border:1px solid salmon;
+
     
 }
 .reverse{

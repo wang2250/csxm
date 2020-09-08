@@ -7,7 +7,11 @@
       <h2>请选择班级</h2>
       <ul>
         <li v-for="(item,i) in list_to" v-bind:key="i">
-          <span class="img"></span>
+          <span class="img">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-qunzu" />
+            </svg>
+          </span>
           <span class="name">{{item.class_name}}</span>
           <span
             class="see"
@@ -26,18 +30,21 @@
             <span>提交申请时间：{{item.time}}</span>
           </div>
           <div class="title">请假原因：{{item.reason}}</div>
-         <div class="img">
-            <img  :src="item.reason_img[0]" />
-         </div>
+          <div class="img">
+            <img :src="item.reason_img[0]" />
+          </div>
 
           <div class="on_to">
             <span @click="up_true(item.student_num)" class="up_true">同意</span>
             <span @click="up_false(item.student_num)" class="up_false">驳回</span>
           </div>
           <div class="number">
-            <textarea id="msg" cols="30" rows="2" placeholder="请输入反馈信息"></textarea>
-            <p @click="go_up()">提交</p>
+            <textarea id="msg" cols="30" rows="5" placeholder="请输入反馈信息"></textarea>
+            <p @click="go_up($event)">提交</p>
           </div>
+        </div>
+        <div v-if="key_to">
+          <h2>当前暂无请假信息 ：）</h2>
         </div>
       </div>
       <div class="swiper-pagination"></div>
@@ -57,7 +64,8 @@ export default {
       numbers: "",
       student_num: "",
       key: "",
-      msg: ""
+      msg: "",
+      key_to: false
     };
   },
   methods: {
@@ -86,19 +94,19 @@ export default {
       let data = {
         lass_num: sef.num_lto
       };
-
       $.ajax({
-        url: "http://huangfufu.top:8080/qiluweb/leave/classleave",
+        url: "https://huangfufu.top:8080/qiluweb/leave/classleave",
         type: "post",
         data: data,
-        // cache: false,
-        // processData: false,
-        // contentType: false,
         success: function(result) {
           if (result) {
             console.log(result, 11111);
-            sef.list = result.data;
-            sef.numbers = result.data.length;
+            if (result.msg != "暂无请假信息") {
+              sef.list = result.data;
+              sef.numbers = result.data.length;
+            } else {
+              sef.key_to = true;
+            }
           }
         },
         error: function(err) {
@@ -112,13 +120,11 @@ export default {
       let dom = document.querySelector(".number");
       dom.style.display = "block";
 
-       
-       let oSapn = document.querySelector(".up_true");
-       
-         oSapn.style.background = "silver";
+      let oSapn = document.querySelector(".up_true");
 
-   
-     
+      oSapn.style.background = "silver";
+
+      console.log(nu);
       this.key = true;
       this.student_num = nu;
     },
@@ -127,21 +133,25 @@ export default {
       dom.style.display = "block";
 
       let oSapn = document.querySelector(".up_false");
-      
-         oSapn.style.background = "silver";
- 
-  
-      
-     
+
+      oSapn.style.background = "silver";
+
       this.key = false;
       this.student_num = nu;
     },
-    go_up() {
-      let inp = document.querySelector("#msg");
-      this.msg = inp.value;
+    go_up(domm) {
+      let sef = this;
       let dom = document.querySelector(".number");
       dom.style.display = "none";
-      //请求
+      console.log(sef.student_num);
+      let data = {
+        student_num: sef.student_num,
+        key: sef.key,
+        msg: domm.path[1].querySelector("#msg").value
+      };
+       sef.$store.state.leave_data = data;
+           this.$router.replace("./confirm");
+      this.footer_on(true);
 
     }
   },
@@ -150,36 +160,35 @@ export default {
     ...mapState(["lass_num", "name", "num"])
   },
   created: function() {
-    let sef = this;
-    //   let dom = document.querySelector(".two");
+    this.list_to = this.$store.state.class_list_fist
+    // let sef = this;
+    // //   let dom = document.querySelector(".two");
 
-    let num = this.$store.state.num.slice(3);
-    let data = {
-      teacher_num: num
-    };
+    // let num = this.$store.state.num.slice(3);
+    // let data = {
+    //   teacher_num: num
+    // };
 
-    //dom.style.display = "block";
-    $.ajax({
-      url: "http://huangfufu.top:8080/qiluweb/class/findclass",
-      type: "POST",
-      data: data,
-      //cache: false,
-      //processData: false,
-      //contentType: "application/json;charset=UTF-8",
-      success: function(result) {
-        if (result) {
-          console.log(result.class_list);
-          //console.log(result.class_list[2].personnel_list)
-          sef.list_to = result.class_list;
-        }
-      },
-      error: function(err) {
-        setTimeout(() => {
-          console.log(err);
-          alert("提交失败！");
-        }, 500);
-      }
-    });
+    // //dom.style.display = "block";
+    // $.ajax({
+    //   url: "https://huangfufu.top:8080/qiluweb/class/findclass",
+    //   type: "POST",
+    //   data: data,
+
+    //   success: function(result) {
+    //     if (result) {
+    //       console.log(result.class_list);
+
+    //       sef.list_to = result.class_list;
+    //     }
+    //   },
+    //   error: function(err) {
+    //     setTimeout(() => {
+    //       console.log(err);
+    //       alert("提交失败！");
+    //     }, 500);
+    //   }
+    // });
   },
   mounted() {
     let mySwiper = new Swiper(".swiper-container", {
@@ -197,10 +206,8 @@ export default {
 .swiper-container {
   width: 80%;
   height: 600px;
-
 }
-.swiper-wrapper{
- 
+.swiper-wrapper {
 }
 .swiper-slide {
   /* float: left;
@@ -219,12 +226,12 @@ export default {
   height: 50px;
 }
 .swiper-slide .img {
-  width: 80%;
+  width: 240px;
   height: 240px;
   margin: 0 auto;
 }
-.swiper-slide .img img{
-display: inline-block;
+.swiper-slide .img img {
+  display: inline-block;
   width: 100%;
 
   height: 240px;
@@ -234,7 +241,7 @@ display: inline-block;
 }
 .swiper-slide .on_to {
   height: 50px;
- 
+
   margin-top: 15px;
 }
 .swiper-slide .on_to span {
@@ -246,10 +253,13 @@ display: inline-block;
   color: white;
   text-align: center;
   line-height: 30px;
+  margin-left: 10px;
+  margin-top: 20px;
 }
 .swiper-slide .number {
-  height: 50px;
+  height: 55px;
   display: none;
+  padding-top: 5px;
 }
 .swiper-slide .number p {
   margin-top: 10px;
@@ -297,11 +307,11 @@ li .img {
   top: 0px;
   width: 50px;
   height: 48px;
-  border: 1px solid black;
 }
+
 li .name {
   position: absolute;
-  left: 65px;
+  left: 60px;
   top: 0px;
 }
 li .see {

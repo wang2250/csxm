@@ -1,28 +1,127 @@
 <template>
   <div>
     <div class="to_back" style="font-size:20px; margin:8px 0 10px 7px;" @click="back_inp()">
-      <i class="iconfont icon-jiantou1"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu"></i>
     </div>
     <div class="warpper">
+      <h2 >申请请假：</h2>
       <div class="stu_to" v-if="key">
         <form id="formData" enctype="multipart/form-data">
-         <input type="text" name="student_nun" :value="stu_num" style="display:none">
-                  <input type="text" name="lass_num" :value="lass_num" style="display:none">
-                           <input type="text" name="student_name" :value="name" style="display:none">
-          <textarea name="reason" placeholder="请输入请假原因"></textarea>
-          <p style="margin-bottom:10px;">
-            上传图片凭证：
-            <input type="file"  name="reason_img"/>
-          </p>
-          <p style="margin-bottom:10px;">
-            请假时间：
-            <input type="text" placeholder="请输入数字单位" name="leave_time"/>
-          </p>
-          <p class="sub" style="margin-bottom:10px;" @click="upload_leave()">提交</p>
+          <input type="text" name="student_nun" :value="stu_num" style="display:none" />
+          <input type="text" name="lass_num" :value="lass_num" style="display:none" />
+          <input type="text" name="student_name" :value="name" style="display:none" />
+          <textarea name="reason" placeholder="请输入你的请假原因"></textarea>
+          <div style="margin:0 0 20px 3px;">
+            <h3>
+              上传图片凭证：
+            </h3>
+            <input type="file" name="reason_img" />
+          </div>
+          <div style="margin:0 10px 0 4px;">
+            <h3>请假时间：</h3>
+            <!-- <input type="text" placeholder="请输入数字单位" name="leave_time"/> -->
+            <select name id="one">
+              <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>号
+            <select name id="two">
+               <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>点 ~ 
+            <select name id="three">
+              <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>号
+            <select name id="four">
+              <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>点
+          </div>
+
+          <p class="sub" style="margin-bottom:10px;" @click="upload_leave()">提交申请</p>
           <p class="reason" @click="leave_reason()">
-            查看我的请假申请
+            查看我的请假凭证
             <i class="iconfont icon-weimingmingwenjianjia_jiantou"></i>
           </p>
+
         </form>
       </div>
 
@@ -56,17 +155,15 @@ export default {
       //组件传值
       this.$router.replace("./leave_to");
     },
-    leave_reason(){
-          this.$router.replace("./leave_reason");
-           this.footer_on(false);
+    leave_reason() {
+      this.$router.replace("./leave_reason");
+      this.footer_on(false);
     },
     upload_leave() {
-
       let form = new FormData(document.querySelector("#formData"));
- console.log("aaa")
 
       $.ajax({
-        url: "http://huangfufu.top:8080/qiluweb/leave/gotoleave",
+        url: "https://huangfufu.top:8080/qiluweb/leave/gotoleave",
         type: "POST",
         data: form,
         cache: false,
@@ -74,8 +171,8 @@ export default {
         contentType: false,
         success: function(result) {
           if (result) {
-            console.log(result)
-            alert(result.msg)
+            console.log(result);
+            alert(result.msg);
           }
         },
         error: function(err) {
@@ -87,7 +184,7 @@ export default {
     }
   },
   computed: {
-          ...mapState(["lass_num", "name", "num"]),
+    ...mapState(["lass_num", "name", "num"]),
     key() {
       if (this.$store.state.num.slice(0, 2) == "工号") {
         return false;
@@ -95,15 +192,15 @@ export default {
         return true;
       }
     },
-    stu_num(){
-        return this.num.slice(3)
+    stu_num() {
+      return this.num.slice(3);
     }
   }
 };
 </script>
 <style scoped>
 .warpper {
-  width: 96%;
+  width: 90%;
 
   float: right;
 }
@@ -155,21 +252,28 @@ li .see {
 .stu_to textarea {
   width: 85%;
   height: 50px;
-  margin-bottom: 10px;
+  margin: 0 0 10px 5px;
 }
 .sub {
-  width: 100px;
+  width: 200px;
   height: 30px;
   line-height: 30px;
   text-align: center;
   color: white;
-  background: darkorange;
+  background: skyblue;
+  margin-top: 25px;
 }
 .reason {
   width: 130px;
   height: 30px;
   line-height: 30px;
   text-align: center;
-  color: darkorange;
+  color: skyblue;
+}
+select{
+  border: none;
+  outline: none;
+  width: 40px;
+  border-bottom: 1px solid gray;
 }
 </style>

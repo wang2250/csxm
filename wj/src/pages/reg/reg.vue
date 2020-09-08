@@ -182,7 +182,7 @@ export default {
 
   let form = new FormData(document.querySelector("#formData"));
   $.ajax({
-    url: 'http://huangfufu.top:8080/qiluweb/number/singin',
+    url: 'https://huangfufu.top:8080/qiluweb/number/singin',
     type: "post",
     data: form,
     cache: false,

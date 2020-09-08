@@ -1,6 +1,6 @@
 <template>
   <div class="join_class">
-    <i class="iconfont icon-jiantou2" @click="go_back()"></i>
+    <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()"></i>
     <div class="warpper">
       <form  id="formData" method="POST" action="#">
         <input type="text" name="teacher_num" :value="num" />
@@ -36,7 +36,7 @@ export default {
       let form = new FormData(document.querySelector("#formData"));
    
       $.ajax({
-        url: "http://111.229.53.240:8080/qiluweb/class/creat",
+        url: "https://huangfufu.top:8080/qiluweb/class/creat",
         type: "POST",
         data: form,
         cache: false,

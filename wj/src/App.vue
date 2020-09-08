@@ -40,14 +40,14 @@ export default {
 
       if (userEntity.num.slice(0,2) == "学号") {
         $.ajax({
-          url: "http://111.229.53.240:8080/qiluweb/class/findclass",
+          url: "https://huangfufu.top:8080/qiluweb/class/findclass",
           type: "POST",
           data: {
             student_num: nu
           },
           success: function(result) {
             if (result) {
-         
+               sef.$store.state.class_list_fist = result.class_list
               sef.$store.state.lass_num =
                 result.class_list[0].personnel_list[0].invite_num;
             }
@@ -61,7 +61,7 @@ export default {
         });
       }else if(userEntity.num.slice(0,2) == "工号"){
           $.ajax({
-          url: "http://111.229.53.240:8080/qiluweb/class/findclass",
+          url: "https://huangfufu.top:8080/qiluweb/class/findclass",
           type: "POST",
           data: {
             teacher_num: nu
@@ -71,6 +71,7 @@ export default {
             if (result) {
       sef.$store.state.class_list = [];
       sef.$store.state.class_na = [];
+      sef.$store.state.class_list_fist = result.class_list
               result.class_list.forEach(function(item){
                 sef.$store.state.class_list.push(item.personnel_list[0].invite_num)
                 sef.$store.state.class_na.push(item.class_name)

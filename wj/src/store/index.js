@@ -26,7 +26,11 @@ Vue.use(Vuex);
       cl_list:[],
       class_na:[],
       cla_reason:"",
-      msg_list_arr:[]
+      msg_list_arr:[],
+      msg_teacher_arr:[],
+      creat_numss:"",
+      class_list_fist:"",
+      leave_data:""
       
    
     },

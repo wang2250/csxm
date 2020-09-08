@@ -1,11 +1,14 @@
 <template>
   <div class="punch_in">
     <p style="padding-left:10px; margin:8px 0 14px 0">
-      <i class="iconfont icon-jiantou2" @click="go_back()" style="font-size:28px;"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()" style="font-size:28px;"></i>
     </p>
 
     <div class="one" @click="go_xq()">
-      <span>考勤统计</span>
+        <svg class="icon" aria-hidden="true" style="width:23px;height:23px" >
+            <use xlink:href="#icon-tongji1" />
+          </svg>
+      <span class="tongji">考勤统计</span>
    <i class="iconfont icon-weimingmingwenjianjia_jiantou" style="float: right;font-size:25px"></i>
     </div>
 
@@ -39,7 +42,7 @@ export default {
 .punch_in div {
   width: 90%;
   margin: 0 auto;
-  border-bottom: 1px solid darkgrey;
+
   height: 50px;
   font-size: 17px;
   line-height: 50px;
@@ -51,11 +54,24 @@ export default {
 .punch_in .san {
 
   height: 45px;
-background: #02a774;
+background: skyblue;
   text-align: center;
   line-height: 45px;
   color: white;
-  
+  width: 180px;
+  float: left;
+  margin-left: 5.5%;
  
 }
+.one svg{
+  margin-bottom: -2px;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+.tongji{
+
+
+ 
+}
+
 </style>

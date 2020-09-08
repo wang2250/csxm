@@ -3,7 +3,9 @@
     <div class="top">
       <div class="ttop">
         <span>
-          <i class="iconfont icon-xiugaitouxiang" style="color:greenyellow"></i>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-xuesheng" />
+          </svg>
         </span>
         <span v-if="!login">{{name}}</span>
         <span class="time"></span>
@@ -43,11 +45,11 @@
               </svg>
               <span>请假</span>
             </li>
-            <li>
+            <li @click="go_jou()">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-ziyuan" />
               </svg>
-              <span>推送</span>
+              <span>消息推送</span>
             </li>
             <li>
               <svg class="icon" aria-hidden="true">
@@ -72,19 +74,15 @@
       <!-- <div class="swiper-pagination"></div> -->
     </div>
     <div class="course">
-      <h2>当前课程</h2>
+      <h3>当前课程</h3>
       <div class="swiper-container">
         <div class="course_cont swiper-wrapper">
           <div class="swiper-slide">
-
-           
-               <div>10:20~11:20</div>
+            <div>10:20~11:20</div>
             <div>张三 | 主楼1-02</div>
-       
-           
-               <div>3，4</div>
-                 <div>高等数学</div>
 
+            <div>3，4</div>
+            <div>高等数学</div>
           </div>
         </div>
       </div>
@@ -146,8 +144,15 @@ export default {
     },
     go_zb() {},
     go_class_r() {
-      this.$router.replace("./class_r");
-      this.footer_on(false);
+      if (this.$store.state.num.slice(0, 2) == "工号") {
+        this.$router.replace("./class_r");
+        this.footer_on(false);
+      } else if (this.$store.state.num.slice(0, 2) == "学号") {
+        this.$router.replace("./class_rst");
+        this.footer_on(false);
+      } else {
+        alert("请先登录");
+      }
     },
 
     change() {},
@@ -160,6 +165,10 @@ export default {
         this.$router.replace("./leave_to");
         this.footer_on(false);
       }
+    },
+    go_jou(){
+       this.$router.replace("./day_jou_teacher");
+       this.footer_on(false);
     }
   },
   mounted() {
@@ -202,7 +211,7 @@ export default {
 .top .ttop {
   padding-top: 6px;
   font-size: 17px;
-  color: #02a774;
+  color: skyblue;
   position: relative;
 }
 .top .ttop span {
@@ -210,8 +219,12 @@ export default {
 }
 .top .ttop span:nth-of-type(1) {
   position: absolute;
-  top: 0px;
-  left: 25px;
+  top: 3px;
+  left: 0px;
+}
+.top .ttop span:nth-of-type(1) svg {
+  width: 25px;
+  height: 25px;
 }
 .top .ttop span:nth-of-type(2) {
   margin-left: 30px;
@@ -223,7 +236,8 @@ export default {
 .nav {
   width: 95%;
   height: 155px;
-  border: 1px solid #e4e0e0;
+  border: 1px solid skyblue;
+  border-radius: 27px;
   margin-top: 10px;
   padding-top: 10px;
   margin: 0 auto;
@@ -399,41 +413,33 @@ export default {
   color: grey;
   position: relative;
 }
-.course .swiper-slide div{
-position: absolute;
-background: transparent;
+.course .swiper-slide div {
+  position: absolute;
+  background: transparent;
 }
-.course .swiper-slide div:nth-last-of-type(1){
-  
+.course .swiper-slide div:nth-last-of-type(1) {
   left: 13px;
-  top:10px;
+  top: 10px;
   width: 100px;
   height: 25px;
-  
 }
-.course .swiper-slide div:nth-last-of-type(2){
-  
+.course .swiper-slide div:nth-last-of-type(2) {
   right: 10px;
-  top:10px;
+  top: 10px;
   width: 100px;
   height: 25px;
-  
 }
-.course .swiper-slide div:nth-last-of-type(3){
-  
+.course .swiper-slide div:nth-last-of-type(3) {
   left: 13px;
-  bottom:3px;
+  bottom: 3px;
   width: 100px;
   height: 25px;
-  
 }
-.course .swiper-slide div:nth-last-of-type(4){
-  
+.course .swiper-slide div:nth-last-of-type(4) {
   right: 10px;
-  bottom:3px;
+  bottom: 3px;
   width: 100px;
   height: 25px;
-  
 }
 </style>
  

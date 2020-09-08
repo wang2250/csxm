@@ -1,7 +1,7 @@
 <template>
   <div>
     <p style="padding-left:10px; margin:8px 0 14px 0">
-      <i class="iconfont icon-jiantou2" @click="go_back()" style="font-size:28px;"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()" style="font-size:28px;"></i>
     </p>
    <div class="warpper">
       签到成功

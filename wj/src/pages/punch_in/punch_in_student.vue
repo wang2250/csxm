@@ -1,7 +1,7 @@
 <template>
   <div class="punch_in">
     <p style="padding-left:10px; margin:8px 0 14px 0">
-      <i class="iconfont icon-jiantou2" @click="go_back()" style="font-size:28px;"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()" style="font-size:28px;"></i>
     </p>
 
     <div v-if="key" class="none">您当前暂无签到任务~</div>
@@ -10,15 +10,19 @@
       <div v-if="data.health">
         <p style="color:#02a774">健康信息</p>
 
-        <p style="margin-bottom:3px;">1.是否有发烧症状(如有发烧症状请写明主体体温)</p>
+        <p style="margin-bottom:3px;">1.是否有发烧症状(如有发烧症状请写明具体体温)</p>
         <p style="padding-left:10px; margin-bottom:8px;">
           <input type="text" value="无" class="one" />
         </p>
-        <p style="margin-bottom:3px;">2.是否接触过被隔离或确诊的新冠肺炎病人</p>
+        <p style="margin-bottom:3px;">2.是否接触过新冠肺炎患者</p>
         <p style="padding-left:10px; margin-bottom:8px;">
           <input type="text" value="否" class="two" />
         </p>
-        <p style="margin-bottom:3px;">3.其他方面不适</p>
+        <p style="margin-bottom:3px;">3.是否被确诊为新冠病人</p>
+        <p style="padding-left:10px; margin-bottom:8px;">
+          <input type="text" value="否" class="two" />
+        </p>
+        <p style="margin-bottom:3px;">4.其他方面不适</p>
         <p style="padding-left:10px; margin-bottom:8px;">
           <input type="text" value="无" class="three" />
         </p>
@@ -26,6 +30,14 @@
       <div v-if="data.position" style="margin:15px 0 15px 0">
         <p style="color:#02a774">位置信息</p>
         <p>请允许系统获取您的位置信息</p>
+        <p>
+          
+           <svg class="icon" aria-hidden="true" style="width:30px">
+                <use xlink:href="#icon-weixian" />
+              </svg>
+             
+        </p>
+        <p> <span style="color:red">暴露通知：</span>在疫情结束之前 如果您有异常发烧或被确诊为新冠肺炎患者  系统会通过您的位置信息 锁定近距离的用户 主动推送通知给他们 并告知危险 请您如实填写健康信息!</p>
       </div>
 
       <p>本次签到截止：{{data.time}}</p>
@@ -71,16 +83,16 @@ export default {
           location_lat: ""
         }
       };
-      // if (navigator.geolocation) {
-      //   navigator.geolocation.getCurrentPosition(function(position) {
-      //     data.position.location_lon = position.coords.longitude;
-      //     data.position.location_lat = position.coords.latitude;
-      //   });
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          data.position.location_lon = position.coords.longitude;
+          data.position.location_lat = position.coords.latitude;
+        });
 
       
-      // } else {
-      //   alert("您的设备不支持定位功能");
-      // }
+      } else {
+        alert("您的设备不支持定位功能");
+      }
   //请求
 
 data.health = JSON.stringify(data.health);
@@ -88,7 +100,7 @@ data.position = JSON.stringify(data.position);
 
 console.log(data)
 $.ajax({
-        url: "http://huangfufu.top:8080/qiluweb/attendance/studenttosignin",
+        url: "https://huangfufu.top:8080/qiluweb/attendance/studenttosignin",
         type: "post",
         data: data,
         // cache: false,
@@ -114,7 +126,7 @@ $.ajax({
   created: function() {
     let num = this.$store.state.num.slice(3);
     let sef = this;
-
+sef.$store.state.footer_on = false;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           console.log(position)
@@ -130,7 +142,7 @@ $.ajax({
     };
 
     $.ajax({
-      url: "http://huangfufu.top:8080/qiluweb/attendance/studentattendance",
+      url: "https://huangfufu.top:8080/qiluweb/attendance/studentattendance",
       type: "post",
       data: data,
 
@@ -173,6 +185,7 @@ $.ajax({
   width: 60%;
   height: 30px;
   background: #02a774;
+  
   color: white;
   text-align: center;
   line-height: 30px;

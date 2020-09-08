@@ -23,10 +23,12 @@ import leave from "../pages/nav/leave.vue";
 import leave_to from "../pages/nav/leave_to.vue";
 import infr from "../pages/Profile/infr.vue";
 import punch_xq from "../pages/punch_in/punch_xq.vue"
-import shezhi from "../pages/Profile/shezhi.vue";
 import msg from "../pages/order/msg.vue"
 import leave_reason from "../pages/nav/leave_reason.vue";
 import  classR from "../pages/nav/class_r.vue";
+import  classRst from "../pages/nav/class_rst.vue";
+import  classC from "../pages/nav/class_creat.vue";
+import  confirm from "../pages/nav/confirm.vue";
 import class_rea from '../pages/class_list/cla_rea.vue'
 Vue.use(Router);
 
@@ -119,10 +121,6 @@ export default new Router({
         {
             path:'/punch_xq',
             component:punch_xq
-        },
-        {
-            path:'/shezhi',
-            component:shezhi
         }
         ,
         {
@@ -141,7 +139,22 @@ export default new Router({
         {
             path:'/class_rea',
             component:class_rea
+        } ,
+        {
+            path:'/class_rst',
+            component:classRst
         }
+        ,
+        {
+            path:'/class_creat',
+            component:classC
+        },
+        ,
+        {
+            path:'/confirm',
+            component:confirm
+        }
+        
 
 
         

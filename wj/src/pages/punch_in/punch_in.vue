@@ -1,7 +1,7 @@
 <template>
   <div class="punch_in">
     <p style="padding-left:10px; margin:8px 0 14px 0">
-      <i class="iconfont icon-jiantou2" @click="go_back()" style="font-size:28px;"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()" style="font-size:28px;"></i>
     </p>
 
     <div class="one">
@@ -9,7 +9,7 @@
         <input type="text" placeholder="输入考勤名称 如：每日签到 （可以为空）" class="name" />
       </p>
       <p>
-        <span class="kuang" style="background:#02a774;" @click="ever()"></span>
+        <span class="kuang" style="background:#f6de3e;" @click="ever()"></span>
         <span class="text">单次签到</span>
         <span class="kuang" style="left:97px;" @click="ever()"></span>
         <span class="text" style="left:120px;">每日签到除周末、节假日</span>
@@ -20,29 +20,32 @@
       </p>
       <p class="auto" style="display:none">系统将每天早8:00自动发布签到</p>
       <p>
-        <span class="kuang" style="background:#02a774;" @click="her()"></span>
+        <span class="kuang" style="background:#f6de3e;" @click="her()"></span>
         <span class="text">上传健康健康状况</span>
       </p>
       <p>
-        <span class="kuang" style="background:#02a774;" @click="posi()"></span>
+        <span class="kuang" style="background:#f6de3e;" @click="posi()"></span>
         <span class="text">请求学生位置信息</span>
       </p>
       <p
-        style="width:100%; height:40px;border:1px solid #e4e0e0; background:#02a774; line-height: 40px;text-align:center; color:white"
-        @click="creat_sta()"
+        style="width:50%; height:40px; background:#f6de3e; line-height: 40px;text-align:center; color:white"
+        @click="creat()"
       >创建考勤</p>
     </div>
     <div class="two">
       <h2>请选择班级</h2>
       <ul>
         <li v-for="(item,i) in list_to" v-bind:key="i">
-          <span class="img"></span>
+          <span class="img">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-qunzu" />
+            </svg>
+          </span>
           <span class="name">{{item.class_name}}</span>
-   <span class="see" @click="on_to($event,item.personnel_list[0].invite_num)"></span>
-    
+          <span class="see" @click="on_to($event,item.personnel_list[0].invite_num)"></span>
         </li>
       </ul>
-      <span @click="creat()" class="sucss">开始签到</span>
+      <span @click="creat_sta()" class="sucss">开始签到</span>
     </div>
   </div>
 </template>
@@ -65,21 +68,21 @@ export default {
     ...mapActions(["login_on", "footer_on"]),
     go_back() {
       this.$router.replace("./punch_in_teacher");
-       this.footer_on(false);
+      this.footer_on(false);
     },
     ever() {
       let dom = document.querySelectorAll(".kuang");
       let time = document.querySelector(".time");
       let auto = document.querySelector(".auto");
       if (dom[1].style.background == "") {
-        dom[1].style.background = "#02a774";
+        dom[1].style.background = "#f6de3e";
         dom[0].style.background = "";
 
         time.style.display = "none";
         auto.style.display = "block";
       } else {
         dom[1].style.background = "";
-        dom[0].style.background = "#02a774";
+        dom[0].style.background = "#f6de3e";
         time.style.display = "block";
         auto.style.display = "none";
       }
@@ -91,7 +94,7 @@ export default {
         dom[2].style.background = "";
         this.flag_her = false;
       } else {
-        dom[2].style.background = "#02a774";
+        dom[2].style.background = "#f6de3e";
         this.flag_her = true;
       }
     },
@@ -102,40 +105,15 @@ export default {
         dom[3].style.background = "";
         this.flag_posi = false;
       } else {
-        dom[3].style.background = "#02a774";
+        dom[3].style.background = "#f6de3e";
         this.flag_posi = true;
       }
     },
     creat_sta() {
-      let sef = this;
+  
       let dom = document.querySelector(".two");
 
-      let num = this.$store.state.num.slice(3);
-      let data = {
-        teacher_num: num
-      };
-      dom.style.display = "block";
-      $.ajax({
-        url: "http://111.229.53.240:8080/qiluweb/class/findclass",
-        type: "POST",
-        data: data,
-        //cache: false,
-        //processData: false,
-        //contentType: "application/json;charset=UTF-8",
-        success: function(result) {
-          if (result) {
-            //console.log(result.class_list[2].personnel_list)
-            sef.list_to = result.class_list;
-    
-          }
-        },
-        error: function(err) {
-          setTimeout(() => {
-            console.log(err);
-            alert("提交失败！");
-          }, 500);
-        }
-      });
+      dom.style.display = "none";
     },
     creat() {
       let name = document.querySelector(".name").value;
@@ -156,19 +134,16 @@ export default {
         health: 1,
         position: 1
       };
-  
+
       $.ajax({
-        url: "http://huangfufu.top:8080/qiluweb/attendance/issue",
+        url: "https://huangfufu.top:8080/qiluweb/attendance/issue",
         type: "post",
         data: form,
-        // cache: false,
-        // processData: false,
-        // contentType: false,
+
         success: function(result) {
           if (result) {
-          
             let dom = document.querySelector(".two");
-              dom.style.display = "none";
+            dom.style.display = "none";
             alert(result.msg);
           }
         },
@@ -190,6 +165,9 @@ export default {
         this.lass_num = "";
       }
     }
+  },
+  created:function(){
+    this.list_to = this.$store.state.class_list_fist;
   }
 };
 </script>
@@ -238,19 +216,18 @@ export default {
 }
 .two {
   width: 100%;
-  
-   height: 400px;
+
+  height: 400px;
   position: absolute;
- padding: 0 20px 0 20px;
+  padding: 0 20px 0 20px;
   top: 0px;
-  display: none;
 }
 .two ul {
   margin-top: 10px;
 }
 .two ul li {
   position: relative;
- height: 55px;
+  height: 55px;
 }
 li .img {
   position: absolute;
@@ -258,7 +235,6 @@ li .img {
   top: 0px;
   width: 50px;
   height: 48px;
-  border: 1px solid black;
 }
 li .name {
   position: absolute;
@@ -274,15 +250,14 @@ li .see {
   border: 1px solid silver;
 }
 .sucss {
- display: inline-block;
- margin-top: 20px;
-  background: seagreen;
+  display: inline-block;
+  margin-top: 20px;
+  background: #f6de3e;
   width: 120px;
   height: 35px;
 
   color: white;
   text-align: center;
   line-height: 35px;
-
 }
 </style>

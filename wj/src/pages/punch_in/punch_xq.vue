@@ -1,7 +1,7 @@
 <template>
   <div>
     <p style="padding-left:10px; margin:8px 0 14px 0">
-      <i class="iconfont icon-jiantou2" @click="go_back()" style="font-size:28px;"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()" style="font-size:28px;"></i>
     </p>
     <div class="list">
       <h2>已签到</h2>
@@ -28,7 +28,11 @@
       <h2>请选择班级</h2>
       <ul>
         <li v-for="(item,i) in list_to" v-bind:key="i">
-          <span class="img"></span>
+          <span class="img">
+              <svg class="icon" aria-hidden="true" >
+                <use xlink:href="#icon-qunzu" />
+              </svg>
+          </span>
           <span class="name">{{item.class_name}}</span>
    <span class="see" @click="on_to($event,item.personnel_list[0].invite_num,item.class_name)"></span>
     
@@ -78,7 +82,7 @@ export default {
 let sef = this;
 
         $.ajax({
-      url: "http://huangfufu.top:8080/qiluweb/attendance/studentssigninforclass",
+      url: "https://huangfufu.top:8080/qiluweb/attendance/studentssigninforclass",
       type: "post",
       data: {
       lass_num:sef.num
@@ -137,36 +141,37 @@ dom.style.display = "none";
    
   },
     created:function(){
-        let sef = this;
-   //   let dom = document.querySelector(".two");
+      this.list_to = this.$store.state.class_list_fist
+  //       let sef = this;
+  //  //   let dom = document.querySelector(".two");
 
-      let num = this.$store.state.num.slice(3);
-      let data = {
-        teacher_num: num
-      };
+  //     let num = this.$store.state.num.slice(3);
+  //     let data = {
+  //       teacher_num: num
+  //     };
    
-      //dom.style.display = "block";
-      $.ajax({
-        url: "http://111.229.53.240:8080/qiluweb/class/findclass",
-        type: "POST",
-        data: data,
-        //cache: false,
-        //processData: false,
-        //contentType: "application/json;charset=UTF-8",
-        success: function(result) {
-          if (result) {
-            //console.log(result.class_list[2].personnel_list)
-            sef.list_to = result.class_list;
+  //     //dom.style.display = "block";
+  //     $.ajax({
+  //       url: "https://111.229.53.240:8080/qiluweb/class/findclass",
+  //       type: "POST",
+  //       data: data,
+  //       //cache: false,
+  //       //processData: false,
+  //       //contentType: "application/json;charset=UTF-8",
+  //       success: function(result) {
+  //         if (result) {
+  //           //console.log(result.class_list[2].personnel_list)
+  //           sef.list_to = result.class_list;
            
-          }
-        },
-        error: function(err) {
-          setTimeout(() => {
-            console.log(err);
-            alert("提交失败！");
-          }, 500);
-        }
-      });
+  //         }
+  //       },
+  //       error: function(err) {
+  //         setTimeout(() => {
+  //           console.log(err);
+  //           alert("提交失败！");
+  //         }, 500);
+  //       }
+  //     });
     }
 
 };
@@ -178,7 +183,7 @@ dom.style.display = "none";
 
   position: absolute;
  padding: 0 20px 0 20px;
-  top: 0px;
+  top: 10px;
   margin-top: 30px;
 
 }
@@ -196,7 +201,7 @@ li .img {
   top: 0px;
   width: 50px;
   height: 48px;
-  border: 1px solid black;
+
 }
 li .name {
   position: absolute;
@@ -215,7 +220,7 @@ li .see {
   /* position: absolute;
   left: 20px;
   bottom: 0; */
-  background: seagreen;
+  background: #f6de3e;
   width: 120px;
   height: 35px;
 display: inline-block;

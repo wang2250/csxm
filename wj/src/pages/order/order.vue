@@ -4,7 +4,11 @@
        <div class="warpper" >
  <ul>
    <li>
-            <span class="img"></span>
+            <span class="img">
+             <svg class="icon" aria-hidden="true" >
+                <use xlink:href="#icon-ziyuan" />
+              </svg>
+            </span>
             <span class="name" style="font-size:15px;">通知助手</span>
             <span class="time">时间</span>
             <span class="msg_num">1</span>
@@ -12,7 +16,11 @@
             
           </li>
           <li v-for="(item,i) in cl_list" v-bind:key="i" @click="msg_go(item.personnel_list[0].invite_num,item.personnel_list,item.class_name)">
-            <span class="img"></span>
+            <span class="img">
+              <svg class="icon" aria-hidden="true" >
+                <use xlink:href="#icon-qunzu" />
+              </svg>
+            </span>
             <span class="name" style="font-size:15px;">  {{item.class_name}}</span>
             <span class="time">时间</span>
             <span class="msg_num">1</span>
@@ -66,7 +74,7 @@ export default {
       }
       
        $.ajax({
-        url: "http://111.229.53.240:8080/qiluweb/class/findclass",
+        url: "https://huangfufu.top:8080/qiluweb/class/findclass",
         type: "POST",
         data: data,
         
@@ -114,8 +122,12 @@ export default {
   top:0px;
   width: 50px;
   height: 48px;
-  border:1px solid black;
+  /* border:1px solid black; */
 }
+ ul li .img {
+   box-sizing: border-box;
+   padding:5px 0 0 5px;
+ }
 ul li .name{
   position: absolute;
   left: 65px;

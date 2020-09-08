@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class>
     <div class="to_back" style="font-size:20px; margin:8px 0 10px 7px;" @click="back_inp()">
       <i class="iconfont icon-jiantou1"></i>
     </div>
@@ -21,9 +21,6 @@
       </ul>
       <span @click="creat()" class="sucss">确定</span>
     </div>
-    <div class="warpper">
-      <p class="go_to">推送消息</p>
-    </div>
   </div>
 </template>
 <script>
@@ -31,7 +28,16 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      list_to: []
+      list_to: [],
+      num_lto: "",
+      name_lto: "",
+      color_key: true,
+      list: [],
+      numbers: "",
+      student_num: "",
+      key: "",
+      msg: "",
+      key_to: false
     };
   },
   methods: {
@@ -39,10 +45,6 @@ export default {
     back_inp() {
       this.$router.replace("./msite");
       this.footer_on(true);
-    },
-    go_to_jou() {
-      this.$router.replace("./day_jou");
-      this.footer_on(false);
     },
     on_to(e, nums, names) {
       if (this.color_key) {
@@ -64,78 +66,146 @@ export default {
       let data = {
         lass_num: sef.num_lto
       };
-      $.ajax({
-        url: "https://huangfufu.top:8080/qiluweb/leave/classleave",
-        type: "post",
-        data: data,
-        success: function(result) {
-          if (result) {
-            console.log(result, 11111);
-            sef.list = result.data;
-            sef.numbers = result.data.length;
-          }
-        },
-        error: function(err) {
-          setTimeout(() => {
-            alert("创建失败！");
-          }, 500);
-        }
-      });
+
+     
     },
+    up_true(nu) {
+      let dom = document.querySelector(".number");
+      dom.style.display = "block";
+
+      let oSapn = document.querySelector(".up_true");
+
+      oSapn.style.background = "silver";
+
+      console.log(nu);
+      this.key = true;
+      this.student_num = nu;
+    },
+    up_false(nu) {
+      let dom = document.querySelector(".number");
+      dom.style.display = "block";
+
+      let oSapn = document.querySelector(".up_false");
+
+      oSapn.style.background = "silver";
+
+      this.key = false;
+      this.student_num = nu;
+    },
+  
+  },
+
+  computed: {
+    ...mapState(["lass_num", "name", "num"])
   },
   created: function() {
-    // let sef = this;
-    //   let dom = document.querySelector(".two");
-     this.list_to= this.$store.state.class_list_fist
-    // let num = this.$store.state.num.slice(3);
-    // let data = {
-    //   teacher_num: num
-    // };
+    let sef = this;
+  
 
-    // //dom.style.display = "block";
-    // $.ajax({
-    //   url: "https://huangfufu.top:8080/qiluweb/class/findclass",
-    //   type: "POST",
-    //   data: data,
+    let num = this.$store.state.num.slice(3);
 
-    //   success: function(result) {
-    //     if (result) {
-    //       console.log(result.class_list);
+    sef.list_to = this.$store.state.class_list_fist
+    
 
-    //       sef.list_to = result.class_list;
-    //     }
-    //   },
-    //   error: function(err) {
-    //     setTimeout(() => {
-    //       console.log(err);
-    //       alert("提交失败！");
-    //     }, 500);
-    //   }
-    // });
+   
+  
+  },
+  mounted() {
+    let mySwiper = new Swiper(".swiper-container", {
+      loop: true, // 循环模式选项
+
+      // 如果需要分页器
+      pagination: {
+        el: ".swiper-pagination"
+      }
+    });
   }
 };
 </script>
 <style scoped>
-.warpper {
+.swiper-container {
   width: 80%;
-  height: 300px;
-
-  margin: 0 auto;
-  margin-top: 20px;
+  height: 600px;
 }
-.go_to {
+.swiper-wrapper {
+}
+.swiper-slide {
+  /* float: left;
+  width: 20%; */
+  height: 480px;
+
+  position: relative;
+}
+.swiper-slide div {
+  width: 80%;
+  margin: 0 auto;
+
+  margin-bottom: 10px;
+}
+.swiper-slide .title {
+  height: 50px;
+}
+.swiper-slide .img {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+}
+.swiper-slide .img img {
+  display: inline-block;
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+
+  height: 240px;
+}
+.swiper-slide .time {
+  height: 50px;
+}
+.swiper-slide .on_to {
+  height: 50px;
+
+  margin-top: 15px;
+}
+.swiper-slide .on_to span {
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  background: darkorange;
+  margin-right: 20px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+}
+.swiper-slide .number {
+  height: 55px;
+  display: none;
+  padding-top: 5px;
+}
+.swiper-slide .number p {
+  margin-top: 10px;
+  width: 80px;
+  height: 30px;
+  background: darkcyan;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+.but div {
+  height: 35px;
+  background: sandybrown;
+  width: 45%;
+  line-height: 35px;
   text-align: center;
   color: white;
-  background: skyblue;
 }
-
+.but .but_agr {
+  float: left;
+}
+.but .but_pas {
+  float: right;
+}
 .two {
   width: 100%;
   height: 100%;
-  display: none;
+
   position: absolute;
   padding: 0 20px 0 20px;
   top: 0px;

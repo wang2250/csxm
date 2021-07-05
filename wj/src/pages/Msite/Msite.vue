@@ -11,7 +11,7 @@
         <span class="time"></span>
         <span>：)</span>
       </div>
-      <i class="iconfont icon-jia join" @click="join_go()"></i>
+      <i class="iconfont icon-jia1" @click="join_go()"></i>
       <!-- <span class="join_to" :id="join_to" @click="join_go()">{{join_to}}</span> -->
     </div>
     <div class="nav swiper-container">
@@ -23,9 +23,9 @@
                 <use xlink:href="#icon-qiandao" />
               </svg>
               <!-- <i class="iconfont icon-kaoqin" @click="go_punch_in()"></i> -->
-              <span>考勤</span>
+              <span>打卡</span>
             </li>
-            <li>
+            <li @click="go_zhoubao()">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-weekly" />
               </svg>
@@ -51,7 +51,7 @@
               </svg>
               <span>消息推送</span>
             </li>
-            <li>
+            <li @click="go_shouji()">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-chengjishouji" />
               </svg>
@@ -59,33 +59,53 @@
             </li>
           </ul>
         </div>
-        <div class="swiper-slide">
+        <!-- <div class="swiper-slide">
           <ul>
             <li>
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-xingtuxuetang-toupiao-" />
               </svg>
-              <!-- <i class="iconfont icon-kaoqin" @click="go_punch_in()"></i> -->
+ 
               <span>投票</span>
             </li>
           </ul>
-        </div>
+        </div>-->
       </div>
       <!-- <div class="swiper-pagination"></div> -->
     </div>
     <div class="course">
-      <h3>当前课程</h3>
-      <div class="swiper-container">
-        <div class="course_cont swiper-wrapper">
-          <div class="swiper-slide">
-            <div>10:20~11:20</div>
-            <div>张三 | 主楼1-02</div>
+      <span style="font-size:16px;margin-left:7px;">{{class_na[ind]}}</span>
 
-            <div>3，4</div>
-            <div>高等数学</div>
+      <span style="font-size:15px;color:grey;">当前课程</span>
+      <div class="swiper-container" v-if="class_list.length !== 0">
+        <div class="course_cont swiper-wrapper">
+          <div class="swiper-slide under" v-for="(item,i) in class_list" v-bind:key="i">
+            <div v-if="JSON.parse(JSON.stringify(now_table))[item]" class="war">
+              <div v-if="JSON.parse(JSON.stringify(now_table))[item][0]" class="war_t">
+                <div>
+                  {{JSON.parse(JSON.stringify(now_table))[item][0].cou_teacher}}
+                  {{JSON.parse(JSON.stringify(now_table))[item][0].cou_teacher_tel}}
+                </div>
+                <div>
+                  {{JSON.parse(JSON.stringify(now_table))[item][0].cou_time[0]}}:
+                  {{JSON.parse(JSON.stringify(now_table))[item][0].cou_time[1]}}~
+                  {{JSON.parse(JSON.stringify(now_table))[item][0].cou_time[2]}}:
+                  {{JSON.parse(JSON.stringify(now_table))[item][0].cou_time[3]}}
+                </div>
+
+                <div>{{JSON.parse(JSON.stringify(now_table))[item][0].cou_position}}</div>
+                <div>{{JSON.parse(JSON.stringify(now_table))[item][0].cou_name}}</div>
+              </div>
+              <div v-else>当前暂无进行中课程</div>
+            </div>
           </div>
+         
         </div>
       </div>
+       <!---->
+       <div class="swi_else" v-else>
+         <h4>暂时没有进行中的课程</h4>
+       </div>
     </div>
   </div>
 </template>
@@ -98,11 +118,22 @@ export default {
       location: "",
       arr: [],
       key: true,
-      key_but: true
+      key_but: true,
+      ind: 0,
+      name_ms: ""
     };
   },
   computed: {
-    ...mapState(["login", "name", "num", "class_na"]),
+    ...mapState([
+      "login",
+      "name",
+      "num",
+      "class_na",
+      "class_list",
+      "now_table",
+      "class_na",
+      "in_fi"
+    ]),
     join_to_do() {
       let nu = this.num.slice(0, 2);
       if (nu == "学号") {
@@ -124,25 +155,50 @@ export default {
     ...mapActions(["footer_on"]),
 
     join_go() {
-      if (this.join_to_do == "加入班级") {
+    
+      if(this.$store.state.num.slice(0, 2) != ""){
+        if (this.join_to_do == "加入班级") {
         this.$router.replace("./join_class");
         this.footer_on();
-      } else {
+      } else{
         this.$router.replace("./creat_class");
         this.footer_on();
       }
+      }else{
+           alert("请先登录")
+      }
+    },
+    go_shouji() {
+       alert("此功能尚未开通")
     },
     go_punch_in() {
       let nu = this.num.slice(0, 2);
       if (nu == "工号") {
         this.$router.replace("./punch_in_teacher");
-      } else {
+      } else if(nu == "学号"){
         this.$router.replace("./punch_in_student");
+      }else{
+        alert("请先登录");
       }
 
       this.footer_on(false);
     },
     go_zb() {},
+    go_zhoubao() {
+ 
+      if (this.$store.state.num.slice(0, 2) == "工号") {
+        this.$router.replace("./zb_teacher");
+        this.footer_on(false);
+      } else if (this.$store.state.num.slice(0, 2) == "学号") {
+        this.$router.replace("./zb_student");
+        this.footer_on(false);
+      } else {
+        alert("请先登录");
+      }
+
+
+    },
+
     go_class_r() {
       if (this.$store.state.num.slice(0, 2) == "工号") {
         this.$router.replace("./class_r");
@@ -164,22 +220,47 @@ export default {
       } else if (this.$store.state.num.slice(0, 2) == "工号") {
         this.$router.replace("./leave_to");
         this.footer_on(false);
+      }else{
+         alert("请先登录");
       }
     },
-    go_jou(){
-       this.$router.replace("./day_jou_teacher");
-       this.footer_on(false);
+    go_jou() {
+
+      if (this.$store.state.num != "") {
+        if (this.$store.state.num.slice(0, 2) == "学号") {
+          alert("请在系统通知中查看消息");
+        } else if (this.$store.state.num.slice(0, 2) == "工号") {
+          this.$router.replace("./day_jou_teacher");
+          this.footer_on(false);
+        }
+      }else{
+        alert("请先登录")
+      }
     }
   },
   mounted() {
+    let sef = this;
+
     let mySwiper = new Swiper(".swiper-container", {
-      //   direction: "vertical", // 垂直切换选项
-      loop: true, // 循环模式选项
+      // loop: true, // 循环模式选项
 
       // 如果需要分页器
       pagination: {
         el: ".swiper-pagination"
-      }
+      },
+      on: {
+        slideChangeTransitionEnd: function() {
+         
+          // if (this.$wrapperEl[0].className == "course_cont swiper-wrapper") {
+
+          sef.ind = this.activeIndex;
+
+          // }
+      
+        }
+      },
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true //修改swiper的父元素时，自动初始化swiper
     });
     let get_time = function() {
       let time = document.querySelector(".time");
@@ -197,7 +278,10 @@ export default {
     };
     get_time();
   },
-  components: {}
+  components: {},
+  created: function() {
+    let sef = this;
+  }
 };
 </script>
 
@@ -234,7 +318,7 @@ export default {
 }
 
 .nav {
-  width: 95%;
+  width: 92%;
   height: 155px;
   border: 1px solid skyblue;
   border-radius: 27px;
@@ -281,6 +365,9 @@ export default {
   font-size: 14px;
   transform: translateX(-50%);
   color: grey;
+
+  width: 100%;
+  text-align: center;
 }
 .top i {
   position: absolute;
@@ -412,34 +499,54 @@ export default {
   padding: 5px 5px 15px 15px;
   color: grey;
   position: relative;
+  margin-top: 10px;
 }
 .course .swiper-slide div {
-  position: absolute;
   background: transparent;
 }
-.course .swiper-slide div:nth-last-of-type(1) {
+.course .swiper-slide .war {
+  width: 100%;
+  height: 100%;
+}
+.course .swiper-slide .war .war_t {
+  width: 100%;
+  height: 100%;
+}
+.course .swiper-slide .war .war_t div {
+  position: absolute;
+}
+.course .swiper-slide .war .war_t div:nth-last-of-type(1) {
   left: 13px;
   top: 10px;
   width: 100px;
   height: 25px;
 }
-.course .swiper-slide div:nth-last-of-type(2) {
+.course .swiper-slide .war .war_t div:nth-last-of-type(2) {
   right: 10px;
   top: 10px;
   width: 100px;
   height: 25px;
 }
-.course .swiper-slide div:nth-last-of-type(3) {
+.course .swiper-slide .war .war_t div:nth-last-of-type(3) {
   left: 13px;
   bottom: 3px;
   width: 100px;
   height: 25px;
 }
-.course .swiper-slide div:nth-last-of-type(4) {
+.course .swiper-slide .war .war_t div:nth-last-of-type(4) {
   right: 10px;
   bottom: 3px;
-  width: 100px;
+  width: 130px;
   height: 25px;
+}
+.swi_else{
+      width: 99%;
+      height:70px;
+      background: skyblue;
+      opacity: .9;
+      border-radius: 20px;
+      margin:  6px auto;
+      padding:3px 10px;
 }
 </style>
  

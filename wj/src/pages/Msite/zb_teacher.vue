@@ -13,50 +13,36 @@
             </svg>
           </span>
           <span class="name">{{item.class_name}}</span>
-          <span
-            class="see"
-            @click="on_to($event,item.personnel_list[0].invite_num)"
-          ></span>
+          <span class="see" @click="on_to($event,item.personnel_list[0].invite_num)"></span>
         </li>
       </ul>
       <span @click="creat()" class="sucss">确定</span>
     </div>
     <div class="warpper">
+      <form id="formData" enctype="multipart/form-data">
+        <p class="title">
+          标题：
+          <input type="text" name="title" />
+        </p>
+        <p class="person_list">
+          <span>收件人</span>
+          <span class="per_num" @click="go_per()">*所有班级成员</span>
+        </p>
+        <p class="text_content">
+          内容：
+          <textarea name="content"></textarea>
+        </p>
 
-        <form id="formData" enctype="multipart/form-data">
+        <p class="go_send" @click="go_to_on()">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-A" />
+          </svg>
+          <span>发送</span>
+        </p>
+        <span v-if="key" style="color:grey">正在提交中。。。</span>
+      </form>
 
-
-   <p class="title">
-          标题：<input type="text" name="title">
-       </p>
-       <p class="person_list">
-         <span>收件人</span>
-         <span class="per_num" @click="go_per()">*所有班级成员</span>
-       </p>
-       <p class="text_content">
-         内容：
-         <textarea name="content"></textarea>
-       </p>
-       <p class="imgs" @click="go_img()" >
-         <input type="file" id="img_file" name="file">
-         <svg class="icon" aria-hidden="true"  >
-              <use xlink:href="#icon-picture" />
-            </svg>
-            <span class="dob_cli">
-              双击图片添加文档
-            </span>
-       </p>
-       <p class="go_send" @click="go_to_on()">
-         
-           <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-A" />
-            </svg>
-            <span>发送</span>
-       </p>
-       <span v-if="key" style="color:grey">正在提交中。。。</span>
-
-        </form>
-
+      <p style="color:grey;margin-top:10px;">*本年度的第{{week}}周</p>
     </div>
   </div>
 </template>
@@ -65,10 +51,11 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      color_key:true,
+      color_key: true,
       list_to: [],
-      num_lto:"",
-      key:false
+      num_lto: "",
+      key: false,
+      week:""
     };
   },
   methods: {
@@ -82,44 +69,46 @@ export default {
       this.footer_on(false);
     },
     on_to(e, nums) {
- 
       if (this.color_key) {
         e.currentTarget.style.background = "red";
         this.color_key = false;
         this.num_lto = nums;
-    
       } else {
         e.currentTarget.style.background = "none";
         this.color_key = true;
         this.num_lto = "";
-       
       }
     },
-    creat(){
-       let dom = document.querySelector(".two");
+    creat() {
+      let dom = document.querySelector(".two");
       dom.style.display = "none";
       let sef = this;
       let data = {
         lass_num: sef.num_lto
       };
-  
-
+    
     },
-    go_img(){
-      
-      let dom = document.querySelector("#img_file")
-  dom.click()
+    go_img() {
+      let dom = document.querySelector("#img_file");
+      dom.click();
     },
-    go_per(){
-
-    },
-    go_to_on(){
+    go_per() {},
+    go_to_on() {
       let sef = this;
       let form = new FormData(document.querySelector("#formData"));
- form.append("class_num",this.num_lto);
- this.key = true;
- $.ajax({
-        url: "https://huangfufu.top:8080/qiluweb/teacher/push/push",
+      form.append("class_num", this.num_lto);
+      let d1 = new Date();
+      let d2 = new Date();
+      d2.setMonth(0);
+      d2.setDate(1);
+      let rq = d1 - d2;
+      let s1 = Math.ceil(rq / (24 * 60 * 60 * 1000));
+      let s2 = Math.ceil(s1 / 7);
+ 
+      form.append("week", s2);
+      this.key = true;
+      $.ajax({
+        url: "https://huangfufu.top:8080/qiluweb/weekly/creat",
         type: "POST",
         data: form,
         cache: false,
@@ -137,27 +126,27 @@ export default {
           }, 500);
         }
       });
-
     }
-
   },
   created: function() {
-  
-     this.list_to= this.$store.state.class_list_fist
-  
-
- 
+    this.list_to = this.$store.state.class_list_fist;
   },
-  
-  mounted(){
- 
+
+  mounted() {
+         let d1 = new Date();
+      let d2 = new Date();
+      d2.setMonth(0);
+      d2.setDate(1);
+      let rq = d1 - d2;
+      let s1 = Math.ceil(rq / (24 * 60 * 60 * 1000));
+      let s2 = Math.ceil(s1 / 7);
+     this.week  = s2;
   }
 };
 </script>
 <style scoped>
 .warpper {
   width: 80%;
-
 
   margin: 0 auto;
   margin-top: 40px;
@@ -174,7 +163,7 @@ export default {
 .two {
   width: 100%;
   height: 100%;
-  
+
   position: absolute;
   padding: 0 20px 0 20px;
   top: 0px;
@@ -224,86 +213,83 @@ li .see {
   margin-top: 18px;
 }
 
-.title{
+.title {
   width: 100%;
   height: 40px;
-  
+
   margin-bottom: 15px;
   font-size: 18px;
-  color:gray;
+  color: gray;
   border-bottom: 1px solid gray;
-
 }
-.title input{
- width: 200px;
- height: 30px;
- outline: none;
- border:none;
-
+.title input {
+  width: 200px;
+  height: 30px;
+  outline: none;
+  border: none;
 }
-.person_list{
+.person_list {
   width: 100%;
   height: 40px;
- display: inline-block;
- line-height: 40px;
-    margin-bottom: 15px;
-    font-size: 16px;
-  color:gray;
+  display: inline-block;
+  line-height: 40px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: gray;
   border-bottom: 1px solid gray;
 }
-.person_list  span:nth-last-of-type(1){
-  color:aqua;
+.person_list span:nth-last-of-type(1) {
+  color: aqua;
 }
 
-.text_content{
+.text_content {
   width: 100%;
   height: 200px;
-   font-size: 18px;
-    margin-bottom: 15px;
-      color:gray;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: gray;
 }
-.text_content textarea{
+.text_content textarea {
   width: 100%;
   height: 100%;
   margin-top: 5px;
 }
-.imgs{
-   width: 100%;
+.imgs {
+  width: 100%;
   height: 30px;
- position: relative;
-    margin-top: 45px;
+  position: relative;
+  margin-top: 45px;
 }
-.imgs .icon{
- width: 30px;
+.imgs .icon {
+  width: 30px;
 }
-.imgs input{
+.imgs input {
   display: none;
 }
-.go_send{
+.go_send {
   width: 30%;
   height: 40px;
-  
-  margin-top: 15px;
+
+  margin-top: 35px;
   display: inline-block;
   position: relative;
- background: skyblue;
+  background: skyblue;
   line-height: 40px;
-
 }
-.go_send .icon{
+.go_send .icon {
   width: 30px;
   margin-right: 10px;
 }
-.go_send span{
+.go_send span {
   position: absolute;
-color:white;
+  color: white;
   font-size: 18px;
   margin-bottom: 10px;
 }
-.dob_cli{
- position: absolute;
- color:grey;
- top:15px;
-left:40px;
+.dob_cli {
+  position: absolute;
+  color: grey;
+  top: 15px;
+  left: 40px;
 }
 </style>

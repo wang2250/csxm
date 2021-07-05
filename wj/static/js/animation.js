@@ -2,9 +2,9 @@ function animation(msg,color){
     let dom = document.createElement('div');
     dom.style.width = "145px";
     dom.style.height = "38px";
-    dom.style.border = "1px solid black";
+    
     dom.style.borderRadius = "30px";
-    dom.style.background = "white";
+    dom.style.background = "skyblue";
     dom.style.textAlign = "center";
     dom.style.lineHeight = "38px"
     dom.style.position = "absolute"
@@ -13,7 +13,9 @@ function animation(msg,color){
     dom.style.top = "-40px";
     dom.style.fontSize = "16px"
     dom.innerHTML = msg;
-    dom.style.border = `1px solid red`;
+    dom.style.color = "white";
+    // dom.style.border = `1px solid red`;
+    // dom.style.boxShadow = "5px 5px 5px";
     document.querySelector("body").appendChild(dom);
     let timer = setInterval(()=>{
         if(dom.offsetTop>15){

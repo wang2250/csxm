@@ -25,7 +25,7 @@ export default {
      
       let num = document.querySelector('.class_num').value;
       $.ajax({
-        url: "http://111.229.53.240:8080/qiluweb/class/join",
+        url: "https://huangfufu.top:8080/qiluweb/class/join",
         type: "POST",
         data:{
           student_num:this.$store.state.num.slice(3),
@@ -37,7 +37,8 @@ export default {
           if (result) {
               if(result.code == 1){
                  alert("加入成功");
-
+                  sef.$router.replace("./msite");
+                location.reload();
               }else{
                  alert(result.msg)
               }
@@ -48,13 +49,16 @@ export default {
         },
         error: function(err) {
           setTimeout(() => {
-            console.log(err);
+        
             alert("提交失败！");
           }, 500);
         }
       });
       
     }
+  },
+  created: function() {
+       this.footer_on(false);
   }
 };
 </script>
@@ -77,8 +81,8 @@ i {
 }
 
 input {
-  width: 90%;
-  height: 35px;
+  width: 85%;
+  height: 30px;
   position: absolute;
   left: 50%;
 
@@ -87,7 +91,11 @@ input {
 }
 input:nth-last-of-type(1) {
   top: 55%;
-  background: #02a774;
+  background: skyblue;
+  outline: none;
+  border:none;
+  -webkit-outline: none;
+   -webkit-border: none;
 }
 </style>
  

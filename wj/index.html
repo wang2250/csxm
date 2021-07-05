@@ -8,21 +8,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
 
 
-  <title>y</title>
-  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1661773_anx2h7jm5k.css">
-  <script src="http://at.alicdn.com/t/font_1661773_anx2h7jm5k.js"></script>
-  <!--swiper-->
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-  <script src="https://unpkg.com/swiper/swiper-bundle.js"> </script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"> </script>
-
-  <script type='application/javascript' src='static/js/fastclick.js'></script>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-  <script src="./static/js/animation.js"></script>
-
-
-
+  <title>和合通</title>
+  <link rel="icon" href="img/log.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1661773_g8o2wps8sv.css">
+  <script src="https://at.alicdn.com/t/font_1661773_g8o2wps8sv.js"></script>
+ 
+  <script src="./static/js/jquery-1.11.0.min.js"></script>
 
   <script>
 
@@ -54,45 +45,116 @@
       fill: currentColor;
       overflow: hidden;
     }
+
+    textarea {
+      outline: none;
+      border: none;
+      border: 1px solid grey;
+    }
+    .war_top{
+      width: 90%;
+      height: 40px;
+      background: skyblue;
+      opacity: .2;
+      border-radius: 20px;
+
+      margin:  0 auto;
+    }
+    .war_content{
+      width: 90%;
+      height:145px;
+      background: skyblue;
+      opacity: .2;
+      border-radius: 20px;
+     
+      margin:  25px auto;
+    }
+    .war_c_t{
+      width: 90%;
+      height:80px;
+      background: skyblue;
+      opacity: .2;
+      border-radius: 20px;
+      margin:  0 auto;
+    }
+    .war_bottom{
+      width: 90%;
+      height:50px;
+      background: skyblue;
+      opacity: .2;
+      border-radius: 20px;
+      margin:  0 auto;
+      position: absolute;
+      bottom: 0px;
+      margin-bottom: 11px;
+    }
   </style>
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div class="war_top">
+    
+    </div>
+    <div class="war_content">
+
+    </div>
+    <div class="war_c_t"></div>
+    <div class="war_bottom"></div>
+  </div>
+
+
   <!-- built files will be auto injected -->
-  <script src="./static/js/jquery-1.11.0.min.js"></script>
+
   <script src="./static/js/jq-signature.js"></script>
 
 
+   <!--swiper-->
+   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+   <script src="https://unpkg.com/swiper/swiper-bundle.js"> </script>
+   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"> </script>
+ 
+   <script type='application/javascript' src='./static/js/fastclick.js'></script>
+   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+   <script src="./static/js/animation.js"></script>
+ 
+   <!--百度地图接口-->
+ 
+ 
+
   <script type="text/javascript">
-  
-  function saveSignature() {
-  $('#signature').empty();
-  var dataUrl = $('.js-signature').jqSignature('getDataURL');
-  var img = $('<img>').attr('src', dataUrl);
-  $('#signature').append($('<p>').text("Here's your signature:"));
-  $('#signature').append(img);
-}
+
+    function saveSignature() {
+      $('#signature').empty();
+      var dataUrl = $('.js-signature').jqSignature('getDataURL');
+      var img = $('<img>').attr('src', dataUrl);
+      $('#signature').append($('<p>').text("Here's your signature:"));
+      $('#signature').append(img);
+    }
 
 
     function imgChange(e) {
-                     alert("ss")
-            console.info(e.target.files[0]);//图片文件
-            var dom =$("input[id^='imgTest']")[0];
-            console.info(dom.value);
-            console.log(e.target.value);
-            var reader = new FileReader();
-            reader.onload = (function (file) {
-                return function (e) {
-                    var img = $('<img>').attr('src',this.result);
-                    $('#signature div').html(img);
-                    $('.js-signature').jqSignature('setData',this.result);
-                    $('#saveBtn').attr('disabled', false);
-                };
-            })(e.target.files[0]);
-            reader.readAsDataURL(e.target.files[0]);
-        }
+      alert("ss")
+      console.info(e.target.files[0]);//图片文件
+      var dom = $("input[id^='imgTest']")[0];
+      console.info(dom.value);
+      console.log(e.target.value);
+      var reader = new FileReader();
+      reader.onload = (function (file) {
+        return function (e) {
+          var img = $('<img>').attr('src', this.result);
+          $('#signature div').html(img);
+          $('.js-signature').jqSignature('setData', this.result);
+          $('#saveBtn').attr('disabled', false);
+        };
+      })(e.target.files[0]);
+      reader.readAsDataURL(e.target.files[0]);
+    }
   </script>
+    <script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=Y6zNQ2unFvUu8NhpmPFvZ5TOVaK4wt0E">
+    </script>
 </body>
 
 </html>

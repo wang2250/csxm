@@ -11,7 +11,7 @@ Vue.use(Vuex);
       footer_on:true,
       name:'请登录',
       num:'',
-      img:"http://huangfufu.top:8080/qiluweb/upload/item/default.jpg",
+      img:"https://huangfufu.top:8080/qiluweb/upload/item/default.jpg",
       student:'',
       lass_num:'',
       login_key:true,
@@ -30,7 +30,23 @@ Vue.use(Vuex);
       msg_teacher_arr:[],
       creat_numss:"",
       class_list_fist:"",
-      leave_data:""
+      leave_data:"",
+      week_list_to:"",
+      week_list:[],
+      week_num:1,
+      c_r_key:true,
+      num_list:[],
+      now_table:"",
+      in_fi:1,
+      data_pun_stu:"",
+      obj_msg:null,
+      tz_obj:null,
+      lo:"117.19155228719286",
+      la:"36.799263035350215",
+      shouji:"",
+      baolu_arr:[],
+      bl_con:"",
+      dom_top:""
       
    
     },
@@ -48,20 +64,7 @@ Vue.use(Vuex);
 
     },
     actions:{
-//       add({commit},n){
-//          commit('add',n);
-//       },
-//       addA({commit},n){
-//         commit('addA',n);
-//      },
-//    async readUser({commit}){
-//       let res = await fetch('http://localhost:8081/user.txt');
-//       let users = await res.json();
-//       console.log(users);
-//      }
-        //  to_login({commit}){
-        //    //commit('change_login')
-        //  }
+
         footer_on({commit},on){
        commit('footer_on',on);
         },
@@ -72,9 +75,7 @@ Vue.use(Vuex);
 
     },
     getters:{//数据发生变化执行
-        // count(state,getters){
-        //      return state.a+2;
-        // }
+     
     },
     modules:{
        

@@ -14,15 +14,12 @@
         <p style="padding-left:10px; margin-bottom:8px;">
           <input type="text" value="无" class="one" />
         </p>
-        <p style="margin-bottom:3px;">2.是否接触过新冠肺炎患者</p>
+        <p style="margin-bottom:3px;">2.是否接触过新冠肺炎患者或被确诊</p>
         <p style="padding-left:10px; margin-bottom:8px;">
           <input type="text" value="否" class="two" />
         </p>
-        <p style="margin-bottom:3px;">3.是否被确诊为新冠病人</p>
-        <p style="padding-left:10px; margin-bottom:8px;">
-          <input type="text" value="否" class="two" />
-        </p>
-        <p style="margin-bottom:3px;">4.其他方面不适</p>
+
+        <p style="margin-bottom:3px;">3.其他方面不适</p>
         <p style="padding-left:10px; margin-bottom:8px;">
           <input type="text" value="无" class="three" />
         </p>
@@ -31,13 +28,13 @@
         <p style="color:#02a774">位置信息</p>
         <p>请允许系统获取您的位置信息</p>
         <p>
-          
-           <svg class="icon" aria-hidden="true" style="width:30px">
-                <use xlink:href="#icon-weixian" />
-              </svg>
-             
+          <svg class="icon" aria-hidden="true" style="width:30px">
+            <use xlink:href="#icon-weixian" />
+          </svg>
         </p>
-        <p> <span style="color:red">暴露通知：</span>在疫情结束之前 如果您有异常发烧或被确诊为新冠肺炎患者  系统会通过您的位置信息 锁定近距离的用户 主动推送通知给他们 并告知危险 请您如实填写健康信息!</p>
+        <p>
+          <span style="color:red">暴露通知：</span>在疫情结束之前 如果您提交的打卡信息存在异常 系统会通过您的位置信息 锁定近距离的用户 并推送通知给他们 请您如实填写健康信息!
+        </p>
       </div>
 
       <p>本次签到截止：{{data.time}}</p>
@@ -47,16 +44,18 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
+
 export default {
   data() {
     return {
       key: true,
       data: null,
+      data_on: null,
       lass_num: ""
     };
   },
   computed: {
-    ...mapState(["login", "name", "num"])
+    ...mapState(["login", "name", "num", "lo", "la"])
   },
   methods: {
     ...mapActions(["login_on", "footer_on"]),
@@ -69,73 +68,67 @@ export default {
       let one = document.querySelector(".one").value;
       let two = document.querySelector(".two").value;
       let three = document.querySelector(".three").value;
- 
+
       let data = {
         lass_num: sef.$store.state.lass_num,
         student_num: sef.$store.state.num.slice(3),
         health: {
           one: one,
-          two: two,
+          tow: two,
           three: three
         },
         position: {
-          location_lon: "",
-          location_lat: ""
+          location_lon: sef.lo,
+          location_lat: sef.la
         }
       };
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          data.position.location_lon = position.coords.longitude;
-          data.position.location_lat = position.coords.latitude;
-        });
 
-      
-      } else {
-        alert("您的设备不支持定位功能");
-      }
-  //请求
+      data.health = JSON.stringify(data.health);
+      data.position = JSON.stringify(data.position);
 
-data.health = JSON.stringify(data.health);
-data.position = JSON.stringify(data.position);
+      //请求
 
-console.log(data)
-$.ajax({
-        url: "https://huangfufu.top:8080/qiluweb/attendance/studenttosignin",
-        type: "post",
-        data: data,
-        // cache: false,
-        // processData: false,
-        // contentType: false,
-        success: function(result) {
-          if (result) {
-          
-          
-            alert(result.msg);
-            location.reload()
+      console.log(data);
+      setTimeout(function() {
+        $.ajax({
+          url: "https://huangfufu.top:8080/qiluweb/attendance/studenttosignin",
+          type: "post",
+          data: data,
+
+          success: function(result) {
+            if (result) {
+              if (result.code) {
+                sef.$router.replace("./success");
+                sef.footer_on(false);
+              }
+            }
+          },
+          error: function(err) {
+            setTimeout(() => {
+              alert("创建失败！");
+            }, 500);
           }
-        },
-        error: function(err) {
-          setTimeout(() => {
-            alert("创建失败！");
-          }, 500);
-        }
-      });   
-          
+        });
+      }, 500);
     }
   },
   created: function() {
-    let num = this.$store.state.num.slice(3);
     let sef = this;
-sef.$store.state.footer_on = false;
+
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          console.log(position)
-        });
-    console.log("sss")
-      
-      } else {
-        alert("您的设备不支持定位功能");
-      }
+      navigator.geolocation.getCurrentPosition(function(position) {
+        sef.$store.state.lo = position.coords.longitude;
+        sef.$store.state.la = position.coords.latitude;
+  
+      });
+    } else {
+      alert("您的设备不支持定位功能");
+    }
+
+    let num = this.$store.state.num.slice(3);
+
+    sef.$store.state.footer_on = false;
+
     let data = {
       lass_num: sef.$store.state.lass_num,
       student_num: num
@@ -185,7 +178,7 @@ sef.$store.state.footer_on = false;
   width: 60%;
   height: 30px;
   background: #02a774;
-  
+
   color: white;
   text-align: center;
   line-height: 30px;

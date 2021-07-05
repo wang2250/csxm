@@ -15,7 +15,7 @@
           <img
             :src="img"
             alt
-            style="width:60px;height:60px;  border-radius: 50%; border:1px solid green;"
+            style="width:60px;height:60px;  border-radius: 50%;"
           />
         </li>
         <li>
@@ -24,8 +24,9 @@
         <li>
           <h3>{{num}}</h3>
         </li>
+      
         <li>
-          <h3>姓名：{{name}}</h3>
+          <h3>学校：山东协和学院</h3>
         </li>
       </ul>
 
@@ -72,7 +73,7 @@ export default {
   width: 80%;
   height: 500px;
   margin: 0 auto;
-
+   color:grey;
   position: relative;
 }
 ul {

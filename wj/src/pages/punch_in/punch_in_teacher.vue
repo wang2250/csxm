@@ -53,10 +53,10 @@ export default {
 }
 .punch_in .san {
 
-  height: 45px;
+  height: 35px;
 background: skyblue;
   text-align: center;
-  line-height: 45px;
+  line-height: 35px;
   color: white;
   width: 180px;
   float: left;
@@ -68,10 +68,6 @@ background: skyblue;
   margin-right: 2px;
   margin-left: 2px;
 }
-.tongji{
 
-
- 
-}
 
 </style>

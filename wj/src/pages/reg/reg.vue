@@ -11,11 +11,12 @@
         <p>
           <input
             type="text"
-           value="山东协和学院"
+          
             name="school"
             style="display:inline-block; margin-right:5px;"
+            placeholder="山东协和学院"
           />
-          <span class="to_school">&gt;</span>
+         
         </p>
         <p style="margin:0;font-size:15px">
           <span>工号/学号</span>
@@ -51,7 +52,7 @@
           <input type="password" placeholder="确认密码" @focus="fou()" />
         </p>
         <p style="font-size:8px; color:darkgrey">
-          <span>8-16位(大写字母+小写字母+数字)</span>
+          <span>(数字字母符合搭配组合)</span>
         </p>
         <p>
           <span style="display:block;width:400px;margin:0 auto">
@@ -61,7 +62,7 @@
               @click="i_do()"
             ></span>
             同意协议
-            <span style="color:green">《xxxxx》《xxxxxx》</span>
+            <span style="color:green">《和和通使用协议》</span>
             <span class="pass_on"></span>
           </span>
         </p>

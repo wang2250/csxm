@@ -2,7 +2,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Msite from '../pages/Msite/Msite.vue';
-
+import tz from '../pages/Profile/tz.vue';
+import tz_xq from '../pages/Profile/tz_xq.vue';
+import phone from '../pages/Profile/phone.vue';
+import jianyi from '../pages/Profile/jianyi.vue';
+import banben from '../pages/Profile/banben.vue';
 import Profile from '../pages/Profile/Profile.vue';
 import login_index from '../pages/login_index/login_index.vue';
 import reg_index from '../pages/reg/reg.vue';
@@ -11,18 +15,19 @@ import creat_class from '../components/creat_class/creat_class.vue'
 import class_list from '../pages/class_list/class_list.vue'
 import punch_in_teacher from "../pages/punch_in/punch_in_teacher.vue"
 import punch_in_student from "../pages/punch_in/punch_in_student.vue"
-
+import pun_xq from "../pages/punch_in/pun_xq.vue"
 import punch_in from "../pages/punch_in/punch_in.vue"
 import order from "../pages/order/order.vue"
 import go_click from "../pages/go_click/go_click.vue"
 import go_generate from "../pages/go_click/go_generate.vue"
 import day_jou_teacher from "../pages/day_jou/day_jou_teacher.vue"
-import day_jou_student from "../pages/day_jou/day_jou_student.vue"
-import day_jou from "../pages/day_jou/day_jou.vue"
+import zb_student from "../pages/Msite/zb_student.vue"
+import zb_teacher from "../pages/Msite/zb_teacher.vue"
 import leave from "../pages/nav/leave.vue";
 import leave_to from "../pages/nav/leave_to.vue";
 import infr from "../pages/Profile/infr.vue";
 import punch_xq from "../pages/punch_in/punch_xq.vue"
+import success from "../pages/punch_in/success.vue"
 import msg from "../pages/order/msg.vue"
 import leave_reason from "../pages/nav/leave_reason.vue";
 import  classR from "../pages/nav/class_r.vue";
@@ -30,6 +35,8 @@ import  classRst from "../pages/nav/class_rst.vue";
 import  classC from "../pages/nav/class_creat.vue";
 import  confirm from "../pages/nav/confirm.vue";
 import class_rea from '../pages/class_list/cla_rea.vue'
+import shouji_tea from "../pages/shouji/shouji_tea.vue"
+import bl from "../pages/order/bl.vue"
 Vue.use(Router);
 
 export default new Router({
@@ -94,14 +101,6 @@ export default new Router({
         {
             path:'/day_jou_teacher',
             component:day_jou_teacher
-        },
-        {
-            path:'/day_jou_student',
-            component:day_jou_student
-        },
-        {
-            path:'/day_jou',
-            component:day_jou
         }
         ,
         {
@@ -154,11 +153,59 @@ export default new Router({
             path:'/confirm',
             component:confirm
         }
+        ,
+        {
+            path:'/shouji_tea',
+            component:shouji_tea
+        }
+        ,
+        {
+            path:'/success',
+            component:success
+        }
+        ,
+        {
+            path:'/tz',
+            component:tz
+        },
         
-
+        {
+            path:'/tz_xq',
+            component:tz_xq
+        },
+        {
+            path:'/pun_xq',
+            component:pun_xq
+        },
+        {
+            path:'/zb_student',
+            component:zb_student
+        },
+        {
+            path:'/zb_teacher',
+            component:zb_teacher
+        },
+        {
+            path:'/phone',
+            component:phone
+        },
+        {
+            path:'/jianyi',
+            component:jianyi
+        },
+        {
+            path:'/banben',
+            component:banben
+        },
+        ,
+        {
+            path:'/bl',
+            component:bl
+        },
 
         
 
         
     ]
 })
+

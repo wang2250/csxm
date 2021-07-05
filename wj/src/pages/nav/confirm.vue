@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-xs-12">
             <h2>请签名:</h2>
-            <div class="js-signature"></div>
+            <div class="js-signature" style="width:80%"></div>
             <p>
               <button id="saveBtn" class="btn btn-default" disabled>确认</button>&nbsp;
               <button id="clearBtn" class="btn btn-default">重写</button>
@@ -44,7 +44,7 @@ export default {
   },
 
   mounted() {
-    console.log("sss")
+
     let dom = document.querySelector(".nav");
     let nums = dom.offsetHeight - 110;
     let sef = this;
@@ -84,7 +84,7 @@ export default {
 
         let imga = document.querySelector("img").src;
         sef.$store.state.leave_data.img_name = imga;
-        console.log(sef.$store.state.leave_data)
+     
           //请求
       $.ajax({
         url: "https://huangfufu.top:8080/qiluweb/leave/permit",
@@ -115,10 +115,9 @@ export default {
 
     function imgChange(e) {
       alert("ss");
-      console.info(e.target.files[0]); //图片文件
+ //图片文件
       var dom = $("input[id^='imgTest']")[0];
-      console.info(dom.value);
-      console.log(e.target.value);
+     
       var reader = new FileReader();
       reader.onload = (function(file) {
         return function(e) {
@@ -138,7 +137,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-
+position: fixed;top:0;left: 0;
   box-sizing: border-box;
 }
 .htmleaf-container {

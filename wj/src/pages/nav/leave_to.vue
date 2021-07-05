@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class="to_back" style="font-size:20px; margin:8px 0 10px 7px;" @click="back_inp()">
-      <i class="iconfont icon-jiantou1"></i>
+      <i class="iconfont icon-daohangjiantouzuodingbu"></i>
     </div>
     <div class="two">
       <h2>请选择班级</h2>
@@ -25,29 +25,47 @@
       <div class="swiper-wrapper">
         <div v-for="(item,i) in list" v-bind:key="i" class="swiper-slide">
           <div class="time">
-            <span>申请人：{{item.student_name}}</span>
-            <span>请假事件：{{item.leave_time}}天</span>
-            <span>提交申请时间：{{item.time}}</span>
-          </div>
-          <div class="title">请假原因：{{item.reason}}</div>
-          <div class="img">
-            <img :src="item.reason_img[0]" />
+            <p>
+              <span style="font-size:16px;">申请人：</span>
+              <span>{{item.student_name}}</span>
+            </p>
+            <p>
+              <span style="font-size:16px;">请假时间：</span>
+              <span>
+                {{item.leave_time.slice(0,1)}}号
+                {{item.leave_time.slice(1,3)}}点 ~
+                {{item.leave_time.slice(4,5)}}号
+                {{item.leave_time.slice(5,7)}}点
+              </span>
+            </p>
+            <p>
+              <span style="font-size:16px;">提交申请时间：</span>
+              <span>{{item.time}}</span>
+            </p>
+            <p>
+              <span style="font-size:16px;">请假原因：</span>
+              <br />
+              <textarea name id cols="25" rows="3" :value="item.reason" style="margin-top:10px"></textarea>
+            </p>
+            <p class="img">
+              <img :src="item.reason_img[0]" />
+            </p>
           </div>
 
           <div class="on_to">
             <span @click="up_true(item.student_num)" class="up_true">同意</span>
             <span @click="up_false(item.student_num)" class="up_false">驳回</span>
           </div>
-          <div class="number">
-            <textarea id="msg" cols="30" rows="5" placeholder="请输入反馈信息"></textarea>
+          
+        </div>
+        <div class="number">
+            <textarea id="msg" cols="25" rows="3" placeholder="请输入反馈信息"></textarea>
             <p @click="go_up($event)">提交</p>
           </div>
-        </div>
         <div v-if="key_to">
-          <h2>当前暂无请假信息 ：）</h2>
+          <h2>当前班级暂无请假信息 ：）</h2>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
     </div>
   </div>
 </template>
@@ -100,7 +118,7 @@ export default {
         data: data,
         success: function(result) {
           if (result) {
-            console.log(result, 11111);
+      
             if (result.msg != "暂无请假信息") {
               sef.list = result.data;
               sef.numbers = result.data.length;
@@ -124,7 +142,7 @@ export default {
 
       oSapn.style.background = "silver";
 
-      console.log(nu);
+
       this.key = true;
       this.student_num = nu;
     },
@@ -143,16 +161,15 @@ export default {
       let sef = this;
       let dom = document.querySelector(".number");
       dom.style.display = "none";
-      console.log(sef.student_num);
+      
       let data = {
         student_num: sef.student_num,
         key: sef.key,
-        msg: domm.path[1].querySelector("#msg").value
+        msg: document.querySelector("#msg").value
       };
-       sef.$store.state.leave_data = data;
-           this.$router.replace("./confirm");
-      this.footer_on(true);
-
+      sef.$store.state.leave_data = data;
+      sef.$router.replace("./confirm");
+      sef.footer_on(true);
     }
   },
 
@@ -160,7 +177,7 @@ export default {
     ...mapState(["lass_num", "name", "num"])
   },
   created: function() {
-    this.list_to = this.$store.state.class_list_fist
+    this.list_to = this.$store.state.class_list_fist;
     // let sef = this;
     // //   let dom = document.querySelector(".two");
 
@@ -207,8 +224,7 @@ export default {
   width: 80%;
   height: 600px;
 }
-.swiper-wrapper {
-}
+
 .swiper-slide {
   /* float: left;
   width: 20%; */
@@ -216,33 +232,23 @@ export default {
 
   position: relative;
 }
-.swiper-slide div {
-  width: 80%;
-  margin: 0 auto;
-
+.swiper-slide p {
   margin-bottom: 10px;
 }
-.swiper-slide .title {
-  height: 50px;
-}
+
 .swiper-slide .img {
   width: 240px;
-  height: 240px;
-  margin: 0 auto;
+  height: 210px;
 }
 .swiper-slide .img img {
   display: inline-block;
   width: 100%;
 
-  height: 240px;
+  height: 210px;
 }
-.swiper-slide .time {
-  height: 50px;
-}
+
 .swiper-slide .on_to {
   height: 50px;
-
-  margin-top: 15px;
 }
 .swiper-slide .on_to span {
   display: inline-block;
@@ -256,12 +262,15 @@ export default {
   margin-left: 10px;
   margin-top: 20px;
 }
-.swiper-slide .number {
+.number {
   height: 55px;
   display: none;
   padding-top: 5px;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
 }
-.swiper-slide .number p {
+ .number p {
   margin-top: 10px;
   width: 80px;
   height: 30px;

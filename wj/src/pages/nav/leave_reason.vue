@@ -9,13 +9,15 @@
         <span style="color:red">{{msg}}</span>
       </h2>
       <div v-if="key">
-        <h2>请假时间</h2>
-        <h3>3</h3>
+        <h2>请假时间：</h2>
+        <h3>{{time}}</h3>
         <h2>老师留言：</h2>
 
         <textarea name="" id="" cols="30" rows="5" :placeholder="cont"></textarea>
         <h2>电子签名凭证：</h2>
-        <img :src="leave_img" alt />
+       <div class="img_warpper">
+          <img :src="leave_img" alt />
+       </div>
       </div>
     </div>
   </div>
@@ -29,7 +31,8 @@ export default {
       msg: "未审批",
       cont: "",
       key: false,
-      leave_img: ""
+      leave_img: "",
+      time:""
     };
   },
   methods: {
@@ -45,7 +48,7 @@ export default {
       student_nun: sef.$store.state.num.slice(3),
       lass_num: sef.$store.state.lass_num
     };
-    console.log(data);
+
     $.ajax({
       url: "https://huangfufu.top:8080/qiluweb/leave/studentdetails",
       type: "POST",
@@ -53,13 +56,14 @@ export default {
 
       success: function(result) {
         if (result) {
-          console.log(result);
+      console.log(result.data)
           if (result.msg != "暂无请假信息") {
             if (result.data.key) {
               sef.msg = "成功";
               sef.key = true;
               sef.cont = result.data.msg;
               sef.leave_img = result.data.img_name;
+              sef.time = result.data.time;
             } else {
               if (result.data.msg) {
                 sef.msg = "失败";
@@ -84,9 +88,16 @@ export default {
   width: 80%;
   margin: 0 auto;
 }
-img{
+.img_warpper{
   width: 100%;
   height: 200px;
+  border: 1px solid grey;
+}
+img{
+  width: 100%;
+  height: 100%;
+  transform: rotate(90deg);
+ 
 }
  
 </style>

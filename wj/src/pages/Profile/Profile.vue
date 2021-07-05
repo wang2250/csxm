@@ -1,62 +1,48 @@
 <template>
   <div class="profile">
-   
-    <div class="top">
-      <div class="headerimg">
-        <img :src="img" alt />
-      </div>
-      <div class="nologin">
-        <div v-if="login">请登录</div>
-        <div v-else>
-          <span style="position:absolute; left:0;top:-10px;font-size:17px;">{{name}}</span>
-          <span style="position:absolute;left:0;top:14px;font-size:12px;color:darkgrey">{{num}}</span>
+  
+      <div class="top">
+        <div class="left_img">
+          <!-- <img :src="img" alt /> -->
         </div>
-      </div>
-      <span class="right">
-        <i class="iconfont icon-jiantou" @click="to_login()"></i>
-      </span>
-    </div>
-    <div class="ad"></div>
-    <div class="nav">
-      <div class="left">
-        <!-- <img src="../../../static/img/xh.jpg" alt=""> -->
-      </div>
-      <div class="right">
-        <div>
+        <div class="right_content">
+          <div v-if="login">请登录</div>
+          <div v-else class="top_two">
+            <span class="top_name">{{name}}</span>
+            <span class="top_num">{{num}}</span>
+          </div>
           
-          <svg class="icon" aria-hidden="true" @click="go_class_list()">
-                <use xlink:href="#icon-gerenxinxiyesuozaibanji" />
-              </svg>
-          <!-- <i class="iconfont icon-banjiguanli" ></i> -->
-          <span>班级</span>
         </div>
+        <span class="con_svg">
+          <i class="iconfont icon-weimingmingwenjianjia_jiantou" @click="to_login()"></i>
+         </span>
       </div>
-    </div>
+   
+    <!---->
     <ul class="list">
-      <li>
+      <li @click="go_class_list()">
         <i class="iconfont icon-kebiao" style="font-size:25px;"></i>
-        <span>班级课表</span>
+        <span>我的班级</span>
         <i class="iconfont icon-weimingmingwenjianjia_jiantou" style="font-size:24px;float:right;"></i>
       </li>
-      <li>
+      <li @click="go_phone()">
         <i class="iconfont icon-webicon18" style="font-size:35px;"></i>
         <span>班级通讯录</span>
         <i class="iconfont icon-weimingmingwenjianjia_jiantou" style="font-size:24px;float:right;"></i>
       </li>
 
-      <li>
+      <li @click="go_jianyi()">
         <i class="iconfont icon-fankui" style="font-size:24px;"></i>
         <span>意见/建议/需求反馈</span>
         <i class="iconfont icon-weimingmingwenjianjia_jiantou" style="font-size:24px;float:right;"></i>
       </li>
 
-      <li>
+      <li @click="go_banben()">
         <i class="iconfont icon-banben" style="font-size:29px;"></i>
         <span>版本信息</span>
         <i class="iconfont icon-weimingmingwenjianjia_jiantou" style="font-size:24px;float:right;"></i>
       </li>
     </ul>
-    
   </div>
 </template>
 
@@ -77,7 +63,7 @@ export default {
       if (this.$store.state.login == true) {
         this.$router.replace("./login");
         this.footer_on(false);
-      }else{
+      } else {
         this.$router.replace("./infr");
         this.footer_on(false);
       }
@@ -90,9 +76,18 @@ export default {
       this.$router.replace("./login");
       this.footer_on(false);
     },
-    sezhi(){
-         this.$router.replace("./shezhi");
-        this.footer_on(false);
+    sezhi() {},
+    go_jianyi() {
+      this.$router.replace("./jianyi");
+      this.footer_on(false);
+    },
+    go_banben() {
+      this.$router.replace("./banben");
+      this.footer_on(false);
+    },
+    go_phone() {
+      this.$router.replace("./phone");
+      this.footer_on(false);
     }
   }
 };
@@ -104,103 +99,64 @@ export default {
   margin: 0 auto;
   background: white;
   height: 500px;
+  padding-top:10px;
 }
+.top{
+  width: 92%;
+  margin: 0 auto;
+  height: 79px;
 
-.top {
-  width: 100%;
-  height: 60px;
-  margin: 20px 0 5px 0;
   position: relative;
+  box-sizing: border-box;
 }
-.top .headerimg {
+.top .left_img{
   width: 60px;
   height: 60px;
-
-  border-radius: 50%;
-  display: inline-block;
-  overflow: hidden;
-  margin-left: 4px;
-  border: 1px solid #f6de3e;
-}
-.top .nologin {
-  width: 200px;
-  height: 100%;
+  border:1px solid skyblue;
   position: absolute;
-  left: 70px;
-  top: 0px;
-  font-size: 16px;
+  top:10px;
 
-  line-height: 60px;
-}
-.top .right {
-  position: absolute;
-  right: 5px;
-  top: 20px;
+  margin-right: 20px;
 }
 
-.set_up {
-  position: absolute;
-  right: 20px;
-  top: 6px;
-  font-size: 17px;
-}
-img {
-  width: 100%;
-  height: 100%;
-}
-.ad {
-  width: 100%;
+.top .right_content{
+   position: absolute;
+   width: 200px;
+   left: 76px;
+   top:10px;
   height: 60px;
-  border: 1px solid #e4e0e0;
-  border-radius: 30px;
-  margin-top: 10px;
-  position: relative;
-  margin: 0 auto;
+ 
 }
-.nav {
-  width: 100%;
-  height: 60px;
-  margin-top: 10px;
-  position: relative;
-}
-.nav .left {
+.right_content .top_num{
   position: absolute;
-  left: 0px;
-  top: 0;
-  width: 60%;
-  height: 100%;
-  border: 1px solid #e4e0e0;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
+  top:35px;
+    color:grey;
+    font-size: 14px;
 }
-.nav .right {
-  position: absolute;
-  right: 10px;
-  top: 0;
-  width: 30%;
-  height: 100%;
-  border: 1px solid #e4e0e0;
-  border-radius: 10px;
+.right_content .top_name{
+   position: absolute;
+  top:4px;
+  font-size: 18px;
+
 }
-.nav .right svg {
-  font-size: 33px;
-  color: #f6de3e;
-  position: absolute;
-  left: 50%;
-  top: 5px;
-  transform: translateX(-50%);
+.con_svg{
+    position: absolute;
+  right: 7px;
+  bottom: 15px;
+
+  color: skyblue;
 }
-.nav .right span {
-  position: absolute;
-  left: 50%;
-  top: 40px;
-  transform: translateX(-50%);
+.con_svg i{
+  font-size: 24px;
 }
+
+
 .list {
-  width: 100%;
+  width: 95%;
   height: 300px;
 
-  margin: 15px 0 10px 0;
+  margin: 0 auto;
+
 }
 .list li {
   width: 97%;
@@ -211,8 +167,13 @@ img {
   font-size: 17px;
   position: relative;
 }
+.list li i {
+  color: skyblue;
+}
+.list li span {
+  color: grey;
+}
 .list li i:nth-of-type(1) {
-  color: #f6de3e;
   position: absolute;
   left: 5px;
   top: 0;

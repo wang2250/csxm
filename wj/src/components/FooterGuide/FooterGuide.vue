@@ -48,6 +48,7 @@ export default {
     height: 50px;
     display: flex; 
     font-size: 16px;
+  margin-bottom: 11px;
  }
   .footer_guide .guide_item{
       display: flex;
@@ -59,7 +60,7 @@ export default {
       color: #999999;
   }
    .footer_guide .on{
-      color: #f6de3e;
+      color: skyblue;
    }
    .guide_item span{
        font-size: 12px;

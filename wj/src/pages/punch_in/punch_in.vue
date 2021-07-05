@@ -9,26 +9,41 @@
         <input type="text" placeholder="输入考勤名称 如：每日签到 （可以为空）" class="name" />
       </p>
       <p>
-        <span class="kuang" style="background:#f6de3e;" @click="ever()"></span>
+        <span class="kuang" style="background:skyblue;" @click="ever()"></span>
         <span class="text">单次签到</span>
-        <span class="kuang" style="left:97px;" @click="ever()"></span>
-        <span class="text" style="left:120px;">每日签到除周末、节假日</span>
+        <span class="kuang" style="left:97px;" @click="ever()" id="onlyy"></span>
+        <span class="text" style="left:120px;">系统每天8点自动发布</span>
       </p>
       <p style="position: relative;" class="time">
-        签到有效期：
-        <input type="text" name="time" placeholder="今日内有效" id="time" />
+        签到有效期(单位:小时)
+        <!-- <input type="text" name="time" placeholder="今日内有效" id="time" /> -->
+        <select name id="time">
+          <option value="0">今日有效</option>
+          <option value="1h">1</option>
+          <option value="2h">2</option>
+          <option value="3h">3</option>
+          <option value="4h">4</option>
+          <option value="5h">5</option>
+          <option value="6h">6</option>
+          <option value="7h">7</option>
+          <option value="8h">8</option>
+          <option value="9h">9</option>
+          <option value="10h">10</option>
+          <option value="11h">11</option>
+          <option value="12h">12</option>
+        </select>
       </p>
       <p class="auto" style="display:none">系统将每天早8:00自动发布签到</p>
       <p>
-        <span class="kuang" style="background:#f6de3e;" @click="her()"></span>
+        <span class="kuang" style="background:skyblue;" @click="her()" id="healths"></span>
         <span class="text">上传健康健康状况</span>
       </p>
       <p>
-        <span class="kuang" style="background:#f6de3e;" @click="posi()"></span>
+        <span class="kuang" style="background:skyblue;" @click="posi()" id="positions"></span>
         <span class="text">请求学生位置信息</span>
       </p>
       <p
-        style="width:50%; height:40px; background:#f6de3e; line-height: 40px;text-align:center; color:white"
+        style="width:50%; height:40px; background:skyblue; line-height: 40px;text-align:center; color:white"
         @click="creat()"
       >创建考勤</p>
     </div>
@@ -75,14 +90,14 @@ export default {
       let time = document.querySelector(".time");
       let auto = document.querySelector(".auto");
       if (dom[1].style.background == "") {
-        dom[1].style.background = "#f6de3e";
+        dom[1].style.background = "skyblue";
         dom[0].style.background = "";
 
         time.style.display = "none";
         auto.style.display = "block";
       } else {
         dom[1].style.background = "";
-        dom[0].style.background = "#f6de3e";
+        dom[0].style.background = "skyblue";
         time.style.display = "block";
         auto.style.display = "none";
       }
@@ -94,7 +109,7 @@ export default {
         dom[2].style.background = "";
         this.flag_her = false;
       } else {
-        dom[2].style.background = "#f6de3e";
+        dom[2].style.background = "skyblue";
         this.flag_her = true;
       }
     },
@@ -105,12 +120,11 @@ export default {
         dom[3].style.background = "";
         this.flag_posi = false;
       } else {
-        dom[3].style.background = "#f6de3e";
+        dom[3].style.background = "skyblue";
         this.flag_posi = true;
       }
     },
     creat_sta() {
-  
       let dom = document.querySelector(".two");
 
       dom.style.display = "none";
@@ -119,8 +133,29 @@ export default {
       let name = document.querySelector(".name").value;
       let nu = this.num.slice(3);
       let sef = this;
-      let time = document.querySelector("#time").value;
+      let selects = document.querySelector("#time");
+      let indexs = selects.selectedIndex;
+      let time = selects.querySelectorAll("option")[indexs].value;
+      let pos = 1;
+      let hea = 1;
+      let on = 0;
+
+      let dom1 = document.querySelector("#healths");
+      let dom2 = document.querySelector("#positions");
+      let dom3 = document.querySelector("#onlyy");
+
+      if (dom1.style.background == "") {
+        hea = 0;
+      }
+      if ((dom2.style.background == "")) {
+        pos = 0;
+      }
+      if (dom3.style.background == "skyblue") {
+        on = 1;
+      }
+
       let times = "";
+
       if (time == "") {
         times = 0;
       } else {
@@ -129,12 +164,12 @@ export default {
       let form = {
         class_num: sef.lass_num,
         punch_in_name: name,
-        only: 0,
+        only: on,
         time: times,
-        health: 1,
-        position: 1
+        health: hea,
+        position: pos
       };
-
+      console.log(form);
       $.ajax({
         url: "https://huangfufu.top:8080/qiluweb/attendance/issue",
         type: "post",
@@ -144,6 +179,7 @@ export default {
           if (result) {
             let dom = document.querySelector(".two");
             dom.style.display = "none";
+            console.log(result)
             alert(result.msg);
           }
         },
@@ -166,7 +202,7 @@ export default {
       }
     }
   },
-  created:function(){
+  created: function() {
     this.list_to = this.$store.state.class_list_fist;
   }
 };
@@ -198,6 +234,7 @@ export default {
   margin: 0 auto;
 }
 .one input {
+  border: 1px solid grey;
   width: 99%;
   height: 30px;
 }
@@ -210,9 +247,16 @@ export default {
 }
 #time {
   position: absolute;
-  width: 100px;
-  height: 17px;
+  width: 80px;
+  height: 22px;
   top: 3px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid grey;
+  margin-left: 10px;
+  -webkit-border: none;
+  -webkit-outline: none;
+  background: transparent;
 }
 .two {
   width: 100%;
@@ -252,7 +296,7 @@ li .see {
 .sucss {
   display: inline-block;
   margin-top: 20px;
-  background: #f6de3e;
+  background: skyblue;
   width: 120px;
   height: 35px;
 

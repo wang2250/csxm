@@ -44,12 +44,13 @@ export default {
        contentType: false,
         success: function(result) {
           if (result) {
-            console.log(result);
+       
             setTimeout(() => {
               if (result.code == 1) {
                 sef.$store.state.footer_on = true;
                 alert("创建成功！");
                 sef.$router.replace("./msite");
+                    location.reload();
               } else {
                 alert(result.msg);
               }
@@ -58,12 +59,15 @@ export default {
         },
         error: function(err) {
           setTimeout(() => {
-            console.log(err);
+         
             alert("提交失败！");
           }, 500);
         }
       });
     }
+  },
+   created: function() {
+       this.footer_on(false);
   }
 };
 </script>

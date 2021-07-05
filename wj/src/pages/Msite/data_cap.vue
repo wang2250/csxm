@@ -77,7 +77,7 @@ export default {
 
       oSapn.style.background = "silver";
 
-      console.log(nu);
+  
       this.key = true;
       this.student_num = nu;
     },

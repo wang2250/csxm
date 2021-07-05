@@ -3,6 +3,9 @@
     <div class="login_top">
       <i class="iconfont icon-daohangjiantouzuodingbu" @click="go_back()"></i>
     </div>
+     <div class="img">
+      <img src="img/log.png" alt="" style="width:50px">
+    </div>
     <div class="login_body">
       <form action="#" method="POST" id="formData">
         <span class="up" :class="{xian:show}" @click="up_on()">老师</span>
@@ -29,10 +32,12 @@
         </div>
       </form>
     </div>
+   
     <div class="buttom">
       <span>没有账号?</span>
       <span style="color:#02a774;" @click="go_reg()">立即注册&gt;</span>
     </div>
+
   </div>
 </template>
 
@@ -230,5 +235,12 @@ span {
   left: 50%;
   font-size: 15px;
   margin-left: -80px;
+}
+.img {
+  width: 50px;
+  height: 50px;
+
+   margin: 0 auto;
+
 }
 </style>
